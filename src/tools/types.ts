@@ -20,6 +20,11 @@ export interface ToolMeta {
   category: ToolCategory;
   /** Extra search terms (used by search / command palette). */
   keywords?: string[];
+  /**
+   * True when the tool can take plain text as its main input from another tool
+   * (the "Send to..." pipeline). The tool must call `usePipelineInput` to receive it.
+   */
+  acceptsText?: boolean;
 }
 
 export interface ToolDefinition extends ToolMeta {
