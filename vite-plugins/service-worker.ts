@@ -5,6 +5,7 @@ import type { Plugin } from "vite";
 
 export const SW_FILENAME = "sw.js";
 export const CACHE_PREFIX = "devbox-";
+const HOST_CONTROL_FILES = new Set(["_headers", "_redirects", "_routes.json"]);
 
 /** Recursively list files under `dir` as posix-style paths relative to it, sorted. */
 export function listFiles(dir: string): string[] {
@@ -97,7 +98,7 @@ export function serviceWorkerPlugin(): Plugin {
       outDir = config.build.outDir;
     },
     closeBundle() {
-      const files = listFiles(outDir).filter((f) => f !== SW_FILENAME);
+      const files = listFiles(outDir).filter((f) => f !== SW_FILENAME && !HOST_CONTROL_FILES.has(f));
       const cacheName = `${CACHE_PREFIX}${hashFiles(outDir, files)}`;
       writeFileSync(join(outDir, SW_FILENAME), renderServiceWorker(cacheName, ["./", ...files]));
     },
