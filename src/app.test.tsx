@@ -340,3 +340,30 @@ describe("unix timestamp tool", () => {
   });
 });
 
+describe("regex tester tool", () => {
+  it("highlights matches, shows capture groups and previews replacement", async () => {
+    await mount("#/regex-tester");
+    await type(await waitFor(() => container.querySelector<HTMLInputElement>("#regex-pattern")), "(?<year>\\d{4})-(\\d{2})");
+    await type(await textarea("Test string"), "dates: 2026-11 and 2027-01");
+
+    await waitFor(() => container.textContent?.includes("2 matches"));
+    const marks = [...container.querySelectorAll("mark.regex-match")].map((m) => m.textContent);
+    expect(marks).toEqual(["2026-11", "2027-01"]);
+    expect(container.textContent).toContain("$1 (year): 2026");
+    expect(container.textContent).toContain("$2: 11");
+
+    const replaceBtn = [...container.querySelectorAll("button")].find((b) => b.textContent === "Replace")!;
+    await act(async () => replaceBtn.click());
+    await type(await waitFor(() => container.querySelector<HTMLInputElement>("#regex-replacement")), "$2/$<year>");
+    await waitFor(() => (findTextarea("Replaced")?.value ?? "").includes("11/2026"));
+    expect(findTextarea("Replaced")?.value).toBe("dates: 11/2026 and 01/2027");
+  });
+
+  it("shows an error for an invalid pattern", async () => {
+    await mount("#/regex-tester");
+    await type(await waitFor(() => container.querySelector<HTMLInputElement>("#regex-pattern")), "(");
+    await waitFor(() => container.querySelector('[role="alert"]'));
+    expect(container.querySelector('[role="alert"]')?.textContent).toMatch(/Unterminated group|Unmatched/i);
+  });
+});
+

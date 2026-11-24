@@ -43,7 +43,7 @@ Conventions:
 - [x] Unix timestamp <-> date (seconds/ms, timezone aware)
 
 ### Web
-- [ ] Regex tester (match highlight, groups, flags)
+- [x] Regex tester (match highlight, groups, flags)
 
 ### Frontend
 - [ ] Color converter (HEX/RGB/HSL/OKLCH) + WCAG contrast checker

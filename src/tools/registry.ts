@@ -95,6 +95,15 @@ export const toolDefinitions: ToolDefinition[] = [
     acceptsText: true,
     component: lazy(() => import("./unix-timestamp")),
   },
+  {
+    id: "regex-tester",
+    name: "Regex Tester",
+    description: "Test regular expressions with match highlighting, capture groups, flags and replace.",
+    category: "Web & network",
+    keywords: ["regex", "regexp", "regular expression", "match", "capture", "group", "replace", "flags"],
+    acceptsText: true,
+    component: lazy(() => import("./regex-tester")),
+  },
 ];
 
 export const registry = createRegistry(toolDefinitions);

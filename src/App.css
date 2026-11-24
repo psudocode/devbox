@@ -451,3 +451,40 @@ input.pane-text {
   font-size: 1.15rem;
   margin: 1.5rem 0 0.5rem;
 }
+
+.regex-highlight {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.6rem 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.regex-match {
+  background: rgba(62, 99, 221, 0.28);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 1px;
+}
+
+.regex-match-alt {
+  background: rgba(48, 164, 108, 0.28);
+}
+
+.regex-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.regex-group-chip {
+  font-size: 0.8rem;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
