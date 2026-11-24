@@ -1,12 +1,40 @@
+import { useEffect, useState } from "react";
 import "./App.css";
+import { CommandPalette } from "./components/CommandPalette";
+import { HomeGrid } from "./components/HomeGrid";
+import { Sidebar } from "./components/Sidebar";
+import { ToolPage } from "./components/ToolPage";
+import { useRoute } from "./lib/useRoute";
+import { markRecent } from "./lib/useUserLists";
 
 function App() {
+  const route = useRoute();
+  const activeToolId = route.name === "tool" ? route.toolId : null;
+  const [paletteOpen, setPaletteOpen] = useState(false);
+
+  useEffect(() => {
+    if (activeToolId) markRecent(activeToolId);
+  }, [activeToolId]);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setPaletteOpen((open) => !open);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
   return (
-    <main className="home">
-      <h1>DevBox</h1>
-      <p>Small developer tools in one place. Runs entirely in your browser, no server.</p>
-      <p className="muted">Tools coming soon.</p>
-    </main>
+    <div className="layout">
+      <Sidebar activeToolId={activeToolId} onSearch={() => setPaletteOpen(true)} />
+      <main className="content">
+        {route.name === "tool" ? <ToolPage key={route.toolId} toolId={route.toolId} /> : <HomeGrid />}
+      </main>
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
+    </div>
   );
 }
 

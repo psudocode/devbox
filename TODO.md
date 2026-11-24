@@ -11,39 +11,39 @@ Conventions:
 
 ## Phase 0 - Platform foundation
 
-- [ ] Tool registry + hash router (`#/tool-id`, works on any static host) + app layout (sidebar, tool page, home grid)
-- [ ] Tool search and command palette (`Ctrl+K`)
-- [ ] Dark / light theme (follows system, user override)
-- [ ] Shared UI: input/output panes, copy button, file drop zone, error display
-- [ ] Persist last input per tool (`localStorage`) and shareable state via URL hash
-- [ ] Favorites and recently used tools
-- [ ] Unit test setup (Vitest) + `npm test` script
-- [ ] GitHub Actions CI: lint, test, build
-- [ ] PWA / offline support (service worker + manifest)
-- [ ] Chain / pipeline: send one tool's output into another tool
+- [x] Tool registry + hash router (`#/tool-id`, works on any static host) + app layout (sidebar, tool page, home grid)
+- [x] Tool search and command palette (`Ctrl+K`)
+- [x] Dark / light theme (follows system, user override)
+- [x] Shared UI: input/output panes, copy button, file drop zone, error display
+- [x] Persist last input per tool (`localStorage`) and shareable state via URL hash
+- [x] Favorites and recently used tools
+- [x] Unit test setup (Vitest) + `npm test` script
+- [x] GitHub Actions CI: lint, test, build
+- [x] PWA / offline support (service worker + manifest)
+- [x] Chain / pipeline: send one tool's output into another tool
 - [ ] (needs owner) Static hosting + deploy workflow (GitHub Pages or Cloudflare Pages)
 
 ## Phase 1 - Most used tools (batch 1)
 
 ### Data & format
-- [ ] JSON formatter / prettify, minify, validate, sort keys
-- [ ] JSON compare / diff
+- [x] JSON formatter / prettify, minify, validate, sort keys
+- [x] JSON compare / diff
 
 ### Encode / decode / convert
-- [ ] Number base converter: hex, binary, decimal, octal, arbitrary base 2-36 (BigInt)
-- [ ] Base64 encode/decode (text, URL-safe variant)
-- [ ] URL encode/decode
+- [x] Number base converter: hex, binary, decimal, octal, arbitrary base 2-36 (BigInt)
+- [x] Base64 encode/decode (text, URL-safe variant)
+- [x] URL encode/decode
 
 ### Security
-- [ ] JWT decoder
-- [ ] Hash generator: MD5, SHA-1, SHA-256, SHA-384, SHA-512, HMAC
-- [ ] UUID v4/v7 generator, ULID, NanoID
+- [x] JWT decoder
+- [x] Hash generator: MD5, SHA-1, SHA-256, SHA-384, SHA-512, HMAC
+- [x] UUID v4/v7 generator, ULID, NanoID
 
 ### Time
-- [ ] Unix timestamp <-> date (seconds/ms, timezone aware)
+- [x] Unix timestamp <-> date (seconds/ms, timezone aware)
 
 ### Web
-- [ ] Regex tester (match highlight, groups, flags)
+- [x] Regex tester (match highlight, groups, flags)
 
 ### Frontend
 - [ ] Color converter (HEX/RGB/HSL/OKLCH) + WCAG contrast checker

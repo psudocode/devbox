@@ -3,35 +3,52 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Dark is the default; light overrides below. `data-theme` is set on <html> by the theme hook. */
+  color-scheme: dark;
+  --bg: #242424;
+  --fg: rgba(255, 255, 255, 0.87);
+  --surface: #1f1f1f;
+  --button-bg: #1a1a1a;
+  --border: rgba(128, 128, 128, 0.3);
+  --accent: #646cff;
+  --accent-hover: #535bf2;
+  --accent-soft: rgba(100, 108, 255, 0.25);
+  color: var(--fg);
+  background-color: var(--bg);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #ffffff;
+  --fg: #213547;
+  --surface: #ffffff;
+  --button-bg: #f9f9f9;
+  --accent-hover: #747bff;
+  --accent-soft: rgba(100, 108, 255, 0.18);
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--accent);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--accent-hover);
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2.4em;
   line-height: 1.1;
 }
 
@@ -42,27 +59,15 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  color: inherit;
+  background-color: var(--button-bg);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--accent);
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
