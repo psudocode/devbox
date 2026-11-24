@@ -221,3 +221,18 @@ describe("base64 tool", () => {
   });
 });
 
+describe("url encode tool", () => {
+  it("encodes, switches mode and reports bad escapes", async () => {
+    await mount("#/url-encode");
+    await type(await textarea("Input"), "a b&c=é");
+    expect((await textarea("Output")).value).toBe("a%20b%26c%3D%C3%A9");
+
+    const decode = await waitFor(() => [...container.querySelectorAll("button")].find((b) => b.textContent === "Decode"));
+    await act(async () => decode.click());
+    await type(await textarea("Input"), "a%20b%zz");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain('Invalid percent escape "%zz"');
+    await type(await textarea("Input"), "a%20b%26");
+    expect((await textarea("Output")).value).toBe("a b&");
+  });
+});
+

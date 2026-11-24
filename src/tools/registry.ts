@@ -51,6 +51,15 @@ export const toolDefinitions: ToolDefinition[] = [
     acceptsText: true,
     component: lazy(() => import("./base64")),
   },
+  {
+    id: "url-encode",
+    name: "URL Encode / Decode",
+    description: "Percent-encode and decode text for URLs: component, full URL and form (+) modes.",
+    category: "Encode / decode / convert",
+    keywords: ["url", "uri", "percent", "encode", "decode", "escape", "query string", "urlencode"],
+    acceptsText: true,
+    component: lazy(() => import("./url-encode")),
+  },
 ];
 
 export const registry = createRegistry(toolDefinitions);
