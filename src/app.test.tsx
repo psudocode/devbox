@@ -283,3 +283,36 @@ describe("hash generator tool", () => {
   });
 });
 
+describe("uuid generator tool", () => {
+  const output = async () => (await textarea("5 generated")).value.split("\n");
+
+  it("generates ids and regenerates on demand", async () => {
+    await mount("#/uuid-generator");
+    const first = await output();
+    expect(first).toHaveLength(5);
+    for (const id of first) expect(id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
+
+    const again = await waitFor(() => [...container.querySelectorAll("button")].find((b) => b.textContent === "Generate again"));
+    await act(async () => again.click());
+    expect(await output()).not.toEqual(first);
+  });
+
+  it("switches type and validates NanoID options", async () => {
+    await mount("#/uuid-generator");
+    const select = await waitFor(() => container.querySelector<HTMLSelectElement>(".toolbar select"));
+    await act(async () => {
+      select.value = "ulid";
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+    for (const id of await output()) expect(id).toMatch(/^[0-9a-hjkmnp-tv-z]{26}$/);
+
+    await act(async () => {
+      select.value = "nanoid";
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+    const alphabet = await waitFor(() => container.querySelector<HTMLInputElement>('input[type="text"]'));
+    await type(alphabet, "aa");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("duplicate");
+  });
+});
+

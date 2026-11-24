@@ -78,6 +78,14 @@ export const toolDefinitions: ToolDefinition[] = [
     acceptsText: true,
     component: lazy(() => import("./hash-generator")),
   },
+  {
+    id: "uuid-generator",
+    name: "UUID / ULID / NanoID",
+    description: "Generate UUID v4 and v7, ULID and NanoID with secure randomness. Time-ordered ids stay sorted.",
+    category: "Security",
+    keywords: ["uuid", "guid", "ulid", "nanoid", "id", "random", "v4", "v7", "unique"],
+    component: lazy(() => import("./uuid-generator")),
+  },
 ];
 
 export const registry = createRegistry(toolDefinitions);
