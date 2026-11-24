@@ -86,6 +86,15 @@ export const toolDefinitions: ToolDefinition[] = [
     keywords: ["uuid", "guid", "ulid", "nanoid", "id", "random", "v4", "v7", "unique"],
     component: lazy(() => import("./uuid-generator")),
   },
+  {
+    id: "unix-timestamp",
+    name: "Unix Timestamp",
+    description: "Convert Unix time (seconds, ms, µs, ns) to dates and back, in any time zone.",
+    category: "Time",
+    keywords: ["unix", "epoch", "timestamp", "date", "time", "timezone", "iso 8601", "utc", "milliseconds"],
+    acceptsText: true,
+    component: lazy(() => import("./unix-timestamp")),
+  },
 ];
 
 export const registry = createRegistry(toolDefinitions);

@@ -316,3 +316,27 @@ describe("uuid generator tool", () => {
   });
 });
 
+describe("unix timestamp tool", () => {
+  const rowValue = (label: string) =>
+    [...container.querySelectorAll(".result-row")]
+      .find((r) => r.querySelector("dt")?.textContent === label)
+      ?.querySelector("code")?.textContent;
+
+  it("converts a timestamp in the selected zone and a date back", async () => {
+    await mount(`#/unix-timestamp?s=${encodeState({ timestamp: "", unit: "auto", timeZone: "Asia/Jakarta", date: "" })}`);
+    await type(await waitFor(() => container.querySelector<HTMLInputElement>("#timestamp-input")), "1700000000");
+    expect(rowValue("UTC (ISO 8601)")).toBe("2023-11-14T22:13:20.000Z");
+    expect(rowValue("Asia/Jakarta (ISO 8601)")).toBe("2023-11-15T05:13:20.000+07:00");
+
+    await type(container.querySelector<HTMLInputElement>("#date-input")!, "2023-11-15 05:13:20");
+    const seconds = [...container.querySelectorAll(".result-row")].filter((r) => r.querySelector("dt")?.textContent === "Unix seconds");
+    expect(seconds.map((r) => r.querySelector("code")?.textContent)).toEqual(["1700000000", "1700000000"]);
+  });
+
+  it("shows errors for bad input", async () => {
+    await mount("#/unix-timestamp");
+    await type(await waitFor(() => container.querySelector<HTMLInputElement>("#timestamp-input")), "abc");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("is a number");
+  });
+});
+

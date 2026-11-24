@@ -40,7 +40,7 @@ Conventions:
 - [x] UUID v4/v7 generator, ULID, NanoID
 
 ### Time
-- [ ] Unix timestamp <-> date (seconds/ms, timezone aware)
+- [x] Unix timestamp <-> date (seconds/ms, timezone aware)
 
 ### Web
 - [ ] Regex tester (match highlight, groups, flags)
