@@ -16,7 +16,13 @@ describe("parseHash", () => {
 
   it("ignores trailing state after the tool id", () => {
     expect(parseHash("#/base64/state")).toEqual({ name: "tool", toolId: "base64" });
-    expect(parseHash("#/base64?s=abc")).toEqual({ name: "tool", toolId: "base64" });
+  });
+
+  it("extracts shared state from the query", () => {
+    expect(parseHash("#/base64?s=abc")).toEqual({ name: "tool", toolId: "base64", state: "abc" });
+    expect(parseHash("#/base64?x=1&s=abc_-9")).toEqual({ name: "tool", toolId: "base64", state: "abc_-9" });
+    expect(parseHash("#/base64?s=")).toEqual({ name: "tool", toolId: "base64" });
+    expect(parseHash("#/base64?x=1")).toEqual({ name: "tool", toolId: "base64" });
   });
 
   it("decodes percent-encoding and survives malformed escapes", () => {
@@ -30,5 +36,11 @@ describe("toolHash", () => {
     expect(toolHash("json-formatter")).toBe("#/json-formatter");
     expect(parseHash(toolHash("json-formatter"))).toEqual({ name: "tool", toolId: "json-formatter" });
     expect(parseHash(HOME_HASH)).toEqual({ name: "home" });
+  });
+
+  it("appends encoded state and round-trips it", () => {
+    expect(toolHash("base64", "abc_-9")).toBe("#/base64?s=abc_-9");
+    expect(parseHash(toolHash("base64", "abc_-9"))).toEqual({ name: "tool", toolId: "base64", state: "abc_-9" });
+    expect(toolHash("base64", "")).toBe("#/base64");
   });
 });

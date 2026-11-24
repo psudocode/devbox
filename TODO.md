@@ -15,7 +15,7 @@ Conventions:
 - [x] Tool search and command palette (`Ctrl+K`)
 - [x] Dark / light theme (follows system, user override)
 - [x] Shared UI: input/output panes, copy button, file drop zone, error display
-- [ ] Persist last input per tool (`localStorage`) and shareable state via URL hash
+- [x] Persist last input per tool (`localStorage`) and shareable state via URL hash
 - [ ] Favorites and recently used tools
 - [x] Unit test setup (Vitest) + `npm test` script
 - [ ] GitHub Actions CI: lint, test, build
