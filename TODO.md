@@ -35,7 +35,7 @@ Conventions:
 - [x] URL encode/decode
 
 ### Security
-- [ ] JWT decoder
+- [x] JWT decoder
 - [ ] Hash generator: MD5, SHA-1, SHA-256, SHA-384, SHA-512, HMAC
 - [ ] UUID v4/v7 generator, ULID, NanoID
 

@@ -236,3 +236,20 @@ describe("url encode tool", () => {
   });
 });
 
+describe("jwt decoder tool", () => {
+  const JWT_IO =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+
+  it("decodes a token and flags garbage", async () => {
+    await mount("#/jwt-decoder");
+    await type(await textarea("Token"), `Bearer ${JWT_IO}`);
+    expect((await textarea("Header")).value).toBe('{\n  "alg": "HS256",\n  "typ": "JWT"\n}');
+    expect((await textarea("Payload")).value).toContain('"name": "John Doe"');
+    expect(container.textContent).toContain("2018-01-18T01:30:22.000Z");
+    expect(container.querySelector('[role="alert"]')).toBeNull();
+
+    await type(await textarea("Token"), "not-a-jwt");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("3 dot-separated parts");
+  });
+});
+

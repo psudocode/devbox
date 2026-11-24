@@ -60,6 +60,15 @@ export const toolDefinitions: ToolDefinition[] = [
     acceptsText: true,
     component: lazy(() => import("./url-encode")),
   },
+  {
+    id: "jwt-decoder",
+    name: "JWT Decoder",
+    description: "Decode a JWT header and payload, read exp / nbf / iat. Does not verify the signature.",
+    category: "Security",
+    keywords: ["jwt", "json web token", "token", "bearer", "decode", "claims", "exp"],
+    acceptsText: true,
+    component: lazy(() => import("./jwt-decoder")),
+  },
 ];
 
 export const registry = createRegistry(toolDefinitions);

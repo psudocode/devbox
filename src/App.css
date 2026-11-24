@@ -419,3 +419,25 @@ input.pane-text {
   display: inline-flex;
   gap: 0.25rem;
 }
+
+.warning {
+  margin: 0 0 0.5rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #f5a524;
+  border-radius: 8px;
+  background: rgba(245, 165, 36, 0.12);
+  font-size: 0.9rem;
+}
+
+.token-status {
+  font-weight: 600;
+}
+
+.token-expired,
+.token-not-yet-valid {
+  color: #e5484d;
+}
+
+.token-valid {
+  color: #30a46c;
+}
