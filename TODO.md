@@ -36,7 +36,7 @@ Conventions:
 
 ### Security
 - [x] JWT decoder
-- [ ] Hash generator: MD5, SHA-1, SHA-256, SHA-384, SHA-512, HMAC
+- [x] Hash generator: MD5, SHA-1, SHA-256, SHA-384, SHA-512, HMAC
 - [ ] UUID v4/v7 generator, ULID, NanoID
 
 ### Time

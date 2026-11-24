@@ -441,3 +441,8 @@ input.pane-text {
 .token-valid {
   color: #30a46c;
 }
+
+.match-badge {
+  color: #30a46c;
+  font-weight: 600;
+}

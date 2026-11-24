@@ -253,3 +253,33 @@ describe("jwt decoder tool", () => {
   });
 });
 
+describe("hash generator tool", () => {
+  const rowValue = async (name: string) => {
+    const row = await waitFor(() =>
+      [...container.querySelectorAll(".result-row")].find((r) => r.querySelector("dt")?.textContent?.startsWith(name)),
+    );
+    return row.querySelector("code")?.textContent;
+  };
+
+  it("hashes text with every algorithm and matches a pasted checksum", async () => {
+    await mount("#/hash-generator");
+    await type(await textarea("Text"), "abc");
+    expect(await rowValue("MD5")).toBe("900150983cd24fb0d6963f7d28e17f72");
+    expect(await rowValue("SHA-256")).toBe("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad");
+
+    const expected = await waitFor(() => container.querySelector<HTMLInputElement>("#expected-hash"));
+    await type(expected, "BA7816BF 8F01CFEA 414140DE 5DAE2223 B00361A3 96177A9C B410FF61 F20015AD");
+    await waitFor(() => container.textContent?.includes("Matches SHA-256"));
+  });
+
+  it("computes HMAC when enabled", async () => {
+    await mount("#/hash-generator");
+    const toggle = await waitFor(() => [...container.querySelectorAll("label")].find((l) => l.textContent?.trim() === "HMAC"));
+    await act(async () => toggle.querySelector("input")!.click());
+    await type(await waitFor(() => container.querySelector<HTMLInputElement>("#hmac-key")), "Jefe");
+    await type(await textarea("Text"), "what do ya want for nothing?");
+    // RFC 2202 test case 2
+    expect(await rowValue("HMAC-MD5")).toBe("750c783e6ab0b503eaa86e310a5db738");
+  });
+});
+

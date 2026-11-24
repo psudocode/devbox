@@ -69,6 +69,15 @@ export const toolDefinitions: ToolDefinition[] = [
     acceptsText: true,
     component: lazy(() => import("./jwt-decoder")),
   },
+  {
+    id: "hash-generator",
+    name: "Hash Generator",
+    description: "MD5, SHA-1, SHA-256, SHA-384, SHA-512 and HMAC for text or files, with checksum compare.",
+    category: "Security",
+    keywords: ["hash", "md5", "sha", "sha256", "sha512", "hmac", "checksum", "digest"],
+    acceptsText: true,
+    component: lazy(() => import("./hash-generator")),
+  },
 ];
 
 export const registry = createRegistry(toolDefinitions);
