@@ -190,3 +190,90 @@ kbd {
   font-size: 0.9rem;
   text-align: left;
 }
+
+/* Shared tool UI */
+.panes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.pane-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.pane-actions {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.pane-text {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9rem;
+  color: inherit;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  resize: vertical;
+}
+
+.pane-text:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.btn-small {
+  padding: 0.2em 0.7em;
+  font-size: 0.85rem;
+  border-color: var(--border);
+}
+
+.btn-small:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.error-display {
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #e5484d;
+  border-radius: 8px;
+  background: rgba(229, 72, 77, 0.12);
+}
+
+.error-display pre {
+  margin: 0.25rem 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+}
+
+.dropzone {
+  padding: 1.5rem;
+  text-align: center;
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.dropzone:hover,
+.dropzone:focus-visible,
+.dropzone.dragging {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}

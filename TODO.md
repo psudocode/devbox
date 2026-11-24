@@ -14,7 +14,7 @@ Conventions:
 - [x] Tool registry + hash router (`#/tool-id`, works on any static host) + app layout (sidebar, tool page, home grid)
 - [x] Tool search and command palette (`Ctrl+K`)
 - [x] Dark / light theme (follows system, user override)
-- [ ] Shared UI: input/output panes, copy button, file drop zone, error display
+- [x] Shared UI: input/output panes, copy button, file drop zone, error display
 - [ ] Persist last input per tool (`localStorage`) and shareable state via URL hash
 - [ ] Favorites and recently used tools
 - [x] Unit test setup (Vitest) + `npm test` script
