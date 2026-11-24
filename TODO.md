@@ -19,7 +19,7 @@ Conventions:
 - [x] Favorites and recently used tools
 - [x] Unit test setup (Vitest) + `npm test` script
 - [x] GitHub Actions CI: lint, test, build
-- [ ] PWA / offline support (service worker + manifest)
+- [x] PWA / offline support (service worker + manifest)
 - [ ] Chain / pipeline: send one tool's output into another tool
 - [ ] (needs owner) Static hosting + deploy workflow (GitHub Pages or Cloudflare Pages)
 
