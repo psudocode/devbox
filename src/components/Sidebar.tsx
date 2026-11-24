@@ -1,4 +1,5 @@
 import { HOME_HASH, toolHash } from "../lib/router";
+import { ThemeToggle } from "./ThemeToggle";
 import { registry } from "../tools/registry";
 
 export function Sidebar({
@@ -35,6 +36,7 @@ export function Sidebar({
           </ul>
         </section>
       ))}
+      <ThemeToggle />
     </nav>
   );
 }

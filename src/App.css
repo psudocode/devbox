@@ -9,7 +9,7 @@
   flex: 0 0 240px;
   box-sizing: border-box;
   padding: 1rem;
-  border-right: 1px solid rgba(128, 128, 128, 0.3);
+  border-right: 1px solid var(--border);
   overflow-y: auto;
   max-height: 100vh;
   position: sticky;
@@ -44,7 +44,7 @@
 }
 
 .sidebar li a[aria-current="page"] {
-  background: rgba(100, 108, 255, 0.2);
+  background: var(--accent-soft);
 }
 
 .content {
@@ -78,13 +78,13 @@
   flex-direction: column;
   gap: 0.25rem;
   padding: 0.75rem 1rem;
-  border: 1px solid rgba(128, 128, 128, 0.3);
+  border: 1px solid var(--border);
   border-radius: 8px;
   color: inherit;
 }
 
 .card:hover {
-  border-color: #646cff;
+  border-color: var(--accent);
 }
 
 .tool-page h1 {
@@ -109,7 +109,7 @@
     max-height: none;
     flex-basis: auto;
     border-right: none;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+    border-bottom: 1px solid var(--border);
   }
 }
 
@@ -149,7 +149,7 @@ kbd {
   flex-direction: column;
   border-radius: 10px;
   border: 1px solid rgba(128, 128, 128, 0.4);
-  background: #1f1f1f;
+  background: var(--surface);
   overflow: hidden;
 }
 
@@ -157,7 +157,7 @@ kbd {
   padding: 0.9rem 1rem;
   font-size: 1.05rem;
   border: none;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+  border-bottom: 1px solid var(--border);
   background: transparent;
   color: inherit;
   outline: none;
@@ -180,11 +180,13 @@ kbd {
 }
 
 .palette-item.active {
-  background: rgba(100, 108, 255, 0.25);
+  background: var(--accent-soft);
 }
 
-@media (prefers-color-scheme: light) {
-  .palette {
-    background: #ffffff;
-  }
+.theme-toggle {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.4em 0.6em;
+  font-size: 0.9rem;
+  text-align: left;
 }
