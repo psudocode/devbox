@@ -282,3 +282,30 @@ kbd {
   border-color: var(--accent);
   background: var(--accent-soft);
 }
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.toolbar select {
+  padding: 0.2em 0.4em;
+  color: inherit;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.status {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.status-bad {
+  color: #e5484d;
+  opacity: 1;
+}

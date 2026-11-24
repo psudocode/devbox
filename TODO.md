@@ -26,7 +26,7 @@ Conventions:
 ## Phase 1 - Most used tools (batch 1)
 
 ### Data & format
-- [ ] JSON formatter / prettify, minify, validate, sort keys
+- [x] JSON formatter / prettify, minify, validate, sort keys
 - [ ] JSON compare / diff
 
 ### Encode / decode / convert

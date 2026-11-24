@@ -11,6 +11,6 @@ export default defineConfig({
   test: {
     // Tool logic is pure (no DOM), so the Node environment is enough and fast.
     environment: "node",
-    include: ["src/**/*.test.ts", "vite-plugins/**/*.test.ts"],
+    include: ["src/**/*.test.{ts,tsx}", "vite-plugins/**/*.test.ts"],
   },
 });

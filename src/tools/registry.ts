@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import { createRegistry } from "./registry-core";
 import type { ToolDefinition } from "./types";
 
@@ -13,6 +14,16 @@ import type { ToolDefinition } from "./types";
  *     component: lazy(() => import("./json-formatter")),
  *   },
  */
-export const toolDefinitions: ToolDefinition[] = [];
+export const toolDefinitions: ToolDefinition[] = [
+  {
+    id: "json-formatter",
+    name: "JSON Formatter",
+    description: "Prettify, minify, validate and sort keys. Keeps big numbers exact.",
+    category: "Data & format",
+    keywords: ["json", "prettify", "beautify", "minify", "validate", "sort", "lint"],
+    acceptsText: true,
+    component: lazy(() => import("./json-formatter")),
+  },
+];
 
 export const registry = createRegistry(toolDefinitions);
