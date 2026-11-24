@@ -82,7 +82,7 @@ describe("app shell", () => {
     const dialog = container.querySelector('[role="dialog"]');
     expect(dialog).not.toBeNull();
 
-    await type(container.querySelector(".palette-input") as HTMLInputElement, "json");
+    await type(container.querySelector(".palette-input") as HTMLInputElement, "json format");
     expect(container.querySelectorAll('[role="option"]').length).toBeGreaterThan(0);
 
     await act(async () => {
@@ -142,3 +142,28 @@ describe("json formatter tool", () => {
     expect(localStorage.getItem("devbox:favorites")).toBe('["json-formatter"]');
   });
 });
+
+describe("json compare tool", () => {
+  it("lists differences and reports identical documents", async () => {
+    await mount("#/json-diff");
+    await type(await textarea("Left"), '{"a":1,"b":[1,2],"c":true}');
+    await type(await textarea("Right"), '{"b":[1,3],"a":1.0,"d":null}');
+
+    const items = [...container.querySelectorAll(".diff-item")].map((li) => li.textContent);
+    expect(items).toHaveLength(3);
+    expect(items.join("|")).toContain("$.b[1]");
+    expect(container.querySelector(".status")?.textContent).toContain("3 differences: 1 added, 1 removed, 1 changed");
+
+    await type(await textarea("Right"), '{"c":true,"b":[1,2],"a":1}');
+    expect(container.querySelector(".status")?.textContent).toContain("Identical");
+    expect(container.querySelector(".diff-list")).toBeNull();
+  });
+
+  it("names the invalid side", async () => {
+    await mount("#/json-diff");
+    await type(await textarea("Left"), "{}");
+    await type(await textarea("Right"), "{oops}");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("Invalid JSON (right)");
+  });
+});
+

@@ -309,3 +309,53 @@ kbd {
   color: #e5484d;
   opacity: 1;
 }
+
+.diff-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.diff-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  align-items: baseline;
+  padding: 0.35rem 0.6rem;
+  border-left: 4px solid;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.diff-item code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  word-break: break-all;
+}
+
+.diff-symbol {
+  font-weight: 700;
+  width: 1ch;
+}
+
+.diff-added {
+  border-color: #30a46c;
+  background: rgba(48, 164, 108, 0.12);
+}
+
+.diff-removed {
+  border-color: #e5484d;
+  background: rgba(229, 72, 77, 0.12);
+}
+
+.diff-changed {
+  border-color: #f5a524;
+  background: rgba(245, 165, 36, 0.12);
+}
+
+.diff-left {
+  text-decoration: line-through;
+  opacity: 0.8;
+}

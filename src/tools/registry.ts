@@ -24,6 +24,15 @@ export const toolDefinitions: ToolDefinition[] = [
     acceptsText: true,
     component: lazy(() => import("./json-formatter")),
   },
+  {
+    id: "json-diff",
+    name: "JSON Compare",
+    description: "Structural diff of two JSON documents, ignoring key order and number formatting.",
+    category: "Data & format",
+    keywords: ["json", "diff", "compare", "difference", "changes"],
+    acceptsText: true,
+    component: lazy(() => import("./json-diff")),
+  },
 ];
 
 export const registry = createRegistry(toolDefinitions);

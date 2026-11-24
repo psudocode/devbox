@@ -27,7 +27,7 @@ Conventions:
 
 ### Data & format
 - [x] JSON formatter / prettify, minify, validate, sort keys
-- [ ] JSON compare / diff
+- [x] JSON compare / diff
 
 ### Encode / decode / convert
 - [ ] Number base converter: hex, binary, decimal, octal, arbitrary base 2-36 (BigInt)
