@@ -16,7 +16,7 @@ Conventions:
 - [x] Dark / light theme (follows system, user override)
 - [x] Shared UI: input/output panes, copy button, file drop zone, error display
 - [x] Persist last input per tool (`localStorage`) and shareable state via URL hash
-- [ ] Favorites and recently used tools
+- [x] Favorites and recently used tools
 - [x] Unit test setup (Vitest) + `npm test` script
 - [ ] GitHub Actions CI: lint, test, build
 - [ ] PWA / offline support (service worker + manifest)

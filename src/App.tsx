@@ -5,11 +5,16 @@ import { HomeGrid } from "./components/HomeGrid";
 import { Sidebar } from "./components/Sidebar";
 import { ToolPage } from "./components/ToolPage";
 import { useRoute } from "./lib/useRoute";
+import { markRecent } from "./lib/useUserLists";
 
 function App() {
   const route = useRoute();
   const activeToolId = route.name === "tool" ? route.toolId : null;
   const [paletteOpen, setPaletteOpen] = useState(false);
+
+  useEffect(() => {
+    if (activeToolId) markRecent(activeToolId);
+  }, [activeToolId]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {

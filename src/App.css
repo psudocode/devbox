@@ -277,3 +277,8 @@ kbd {
   border-color: var(--accent);
   background: var(--accent-soft);
 }
+
+.favorite[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
