@@ -18,7 +18,7 @@ Conventions:
 - [x] Persist last input per tool (`localStorage`) and shareable state via URL hash
 - [x] Favorites and recently used tools
 - [x] Unit test setup (Vitest) + `npm test` script
-- [ ] GitHub Actions CI: lint, test, build
+- [x] GitHub Actions CI: lint, test, build
 - [ ] PWA / offline support (service worker + manifest)
 - [ ] Chain / pipeline: send one tool's output into another tool
 - [ ] (needs owner) Static hosting + deploy workflow (GitHub Pages or Cloudflare Pages)
