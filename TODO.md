@@ -30,7 +30,7 @@ Conventions:
 - [x] JSON compare / diff
 
 ### Encode / decode / convert
-- [ ] Number base converter: hex, binary, decimal, octal, arbitrary base 2-36 (BigInt)
+- [x] Number base converter: hex, binary, decimal, octal, arbitrary base 2-36 (BigInt)
 - [ ] Base64 encode/decode (text, URL-safe variant)
 - [ ] URL encode/decode
 

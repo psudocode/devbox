@@ -359,3 +359,58 @@ kbd {
   text-decoration: line-through;
   opacity: 0.8;
 }
+
+.base-input {
+  width: 4.5em;
+  padding: 0.2em 0.4em;
+  color: inherit;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.base-input[aria-invalid="true"] {
+  border-color: #e5484d;
+}
+
+button[aria-pressed="true"].btn-small {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+input.pane-text {
+  font-size: 1rem;
+}
+
+.results {
+  margin: 1rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.result-row {
+  display: grid;
+  grid-template-columns: minmax(130px, 200px) 1fr;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+
+.result-row dt {
+  font-weight: 600;
+}
+
+.result-row dd {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  min-width: 0;
+}
+
+.result-row code {
+  flex: 1;
+  min-width: 0;
+  word-break: break-all;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}

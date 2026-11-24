@@ -167,3 +167,33 @@ describe("json compare tool", () => {
   });
 });
 
+describe("number base tool", () => {
+  const numberInput = () => waitFor(() => container.querySelector<HTMLInputElement>("#number-input"));
+  const rowText = (label: string) =>
+    [...container.querySelectorAll(".result-row")].find((r) => r.querySelector("dt")?.textContent === label)?.querySelector("code")
+      ?.textContent;
+
+  it("converts between bases, including big values", async () => {
+    await mount("#/number-base");
+    await type(await numberInput(), "255");
+    expect(rowText("Binary (2)")).toBe("11111111");
+    expect(rowText("Hexadecimal (16)")).toBe("ff");
+    expect(rowText("Octal (8)")).toBe("377");
+    expect(rowText("Base 36")).toBe("73");
+
+    await type(await numberInput(), "123456789012345678901234567890");
+    expect(rowText("Hexadecimal (16)")).toBe("18ee90ff6c373e0ee4e3f0ad2");
+  });
+
+  it("switches the input base and shows errors", async () => {
+    await mount("#/number-base");
+    await act(async () => void (await waitFor(() => [...container.querySelectorAll("button")].find((b) => b.textContent === "HEX")))!.click());
+    await type(await numberInput(), "0xFF");
+    expect(rowText("Decimal (10)")).toBe("255");
+
+    await type(await numberInput(), "xyz");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("is not a valid digit in base 16");
+    expect(container.querySelector(".results")).toBeNull();
+  });
+});
+

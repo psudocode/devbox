@@ -33,6 +33,15 @@ export const toolDefinitions: ToolDefinition[] = [
     acceptsText: true,
     component: lazy(() => import("./json-diff")),
   },
+  {
+    id: "number-base",
+    name: "Number Base Converter",
+    description: "Convert integers between bases 2-36 (hex, binary, decimal, octal). No size limit.",
+    category: "Encode / decode / convert",
+    keywords: ["hex", "binary", "decimal", "octal", "base", "radix", "bigint", "convert"],
+    acceptsText: true,
+    component: lazy(() => import("./number-base")),
+  },
 ];
 
 export const registry = createRegistry(toolDefinitions);
