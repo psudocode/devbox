@@ -31,7 +31,7 @@ Conventions:
 
 ### Encode / decode / convert
 - [x] Number base converter: hex, binary, decimal, octal, arbitrary base 2-36 (BigInt)
-- [ ] Base64 encode/decode (text, URL-safe variant)
+- [x] Base64 encode/decode (text, URL-safe variant)
 - [ ] URL encode/decode
 
 ### Security

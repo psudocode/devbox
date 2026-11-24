@@ -414,3 +414,8 @@ input.pane-text {
   word-break: break-all;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
+
+.segmented {
+  display: inline-flex;
+  gap: 0.25rem;
+}

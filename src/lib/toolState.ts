@@ -1,3 +1,4 @@
+import { base64ToBytes, bytesToBase64 } from "./base64";
 import type { KeyValueStorage } from "./theme";
 
 /** Soft limit: URLs beyond this are likely to be truncated by chat apps and some servers. */
@@ -10,22 +11,17 @@ export const toolStorageKey = (toolId: string) => `${STORAGE_PREFIX}${toolId}`;
 /** JSON -> UTF-8 -> base64url (no padding). Safe to put in a URL hash. */
 export function encodeState(value: unknown): string {
   const bytes = new TextEncoder().encode(JSON.stringify(value));
-  let binary = "";
-  const chunk = 0x8000;
-  for (let i = 0; i < bytes.length; i += chunk) {
-    binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
-  }
-  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  return bytesToBase64(bytes, { urlSafe: true, padding: false });
 }
 
 /** Inverse of `encodeState`. Returns undefined for anything malformed (never throws). */
 export function decodeState(encoded: string): unknown {
   try {
+    // Only the URL-safe alphabet without padding is ever produced by encodeState.
     if (!/^[A-Za-z0-9_-]+$/.test(encoded)) return undefined;
-    const base64 = encoded.replace(/-/g, "+").replace(/_/g, "/");
-    const binary = atob(base64 + "=".repeat((4 - (base64.length % 4)) % 4));
-    const bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
-    return JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
+    const decoded = base64ToBytes(encoded);
+    if (!decoded.ok) return undefined;
+    return JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(decoded.bytes));
   } catch {
     return undefined;
   }

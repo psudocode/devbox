@@ -42,6 +42,15 @@ export const toolDefinitions: ToolDefinition[] = [
     acceptsText: true,
     component: lazy(() => import("./number-base")),
   },
+  {
+    id: "base64",
+    name: "Base64",
+    description: "Encode and decode text as Base64, with URL-safe and unpadded variants.",
+    category: "Encode / decode / convert",
+    keywords: ["base64", "encode", "decode", "url-safe", "base64url", "utf-8"],
+    acceptsText: true,
+    component: lazy(() => import("./base64")),
+  },
 ];
 
 export const registry = createRegistry(toolDefinitions);

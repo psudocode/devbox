@@ -197,3 +197,27 @@ describe("number base tool", () => {
   });
 });
 
+describe("base64 tool", () => {
+  it("encodes, swaps and decodes", async () => {
+    await mount("#/base64");
+    await type(await textarea("Text"), "héllo 🐙");
+    expect((await textarea("Base64")).value).toBe("aMOpbGxvIPCfkJk=");
+
+    const swap = await waitFor(() => [...container.querySelectorAll("button")].find((b) => b.textContent === "Swap"));
+    await act(async () => swap.click());
+    // after swapping: decode mode, input is the Base64, output is the original text
+    expect((await textarea("Base64")).value).toBe("aMOpbGxvIPCfkJk=");
+    expect((await textarea("Text")).value).toBe("héllo 🐙");
+  });
+
+  it("shows an error for invalid Base64 and for binary data", async () => {
+    await mount("#/base64");
+    const decode = await waitFor(() => [...container.querySelectorAll("button")].find((b) => b.textContent === "Decode"));
+    await act(async () => decode.click());
+    await type(await textarea("Base64"), "###");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("Invalid character");
+    await type(await textarea("Base64"), "//4=");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("not valid UTF-8");
+  });
+});
+
