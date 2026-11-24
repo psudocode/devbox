@@ -17,7 +17,7 @@ Conventions:
 - [ ] Shared UI: input/output panes, copy button, file drop zone, error display
 - [ ] Persist last input per tool (`localStorage`) and shareable state via URL hash
 - [ ] Favorites and recently used tools
-- [ ] Unit test setup (Vitest) + `npm test` script
+- [x] Unit test setup (Vitest) + `npm test` script
 - [ ] GitHub Actions CI: lint, test, build
 - [ ] PWA / offline support (service worker + manifest)
 - [ ] Chain / pipeline: send one tool's output into another tool

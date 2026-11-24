@@ -14,6 +14,7 @@ Vite + React 18 + TypeScript. Static build, deployable on any static host.
 npm install
 npm run dev      # start dev server
 npm run lint     # eslint
+npm test         # unit tests (Vitest)
 npm run build    # type-check + production build into dist/
 npm run preview  # serve the production build locally
 ```
