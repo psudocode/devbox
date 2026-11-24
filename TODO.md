@@ -1,0 +1,130 @@
+# DevBox TODO
+
+Roadmap for DevBox: small developer tools in one place, **100% client-side** (no server, no data leaves the browser).
+
+Conventions:
+- One checkbox = one deliverable (usually one tool). Work top to bottom unless noted.
+- Each tool lives in `src/tools/<tool-id>/` with pure logic in `logic.ts` (unit-tested) and UI in `index.tsx`, and is registered in the tool registry.
+- Prefer Web APIs (`crypto.subtle`, `TextEncoder`, `Intl`, `URL`, Canvas) over dependencies. Add a dependency only when it clearly pays off, and mention it in the PR.
+- Mark an item `[x]` only when it is implemented, has tests for its logic, and `npm run lint && npm test && npm run build` pass.
+- Owner can reorder, add or strike items at any time.
+
+## Phase 0 - Platform foundation
+
+- [ ] Tool registry + hash router (`#/tool-id`, works on any static host) + app layout (sidebar, tool page, home grid)
+- [ ] Tool search and command palette (`Ctrl+K`)
+- [ ] Dark / light theme (follows system, user override)
+- [ ] Shared UI: input/output panes, copy button, file drop zone, error display
+- [ ] Persist last input per tool (`localStorage`) and shareable state via URL hash
+- [ ] Favorites and recently used tools
+- [ ] Unit test setup (Vitest) + `npm test` script
+- [ ] GitHub Actions CI: lint, test, build
+- [ ] PWA / offline support (service worker + manifest)
+- [ ] Chain / pipeline: send one tool's output into another tool
+- [ ] (needs owner) Static hosting + deploy workflow (GitHub Pages or Cloudflare Pages)
+
+## Phase 1 - Most used tools (batch 1)
+
+### Data & format
+- [ ] JSON formatter / prettify, minify, validate, sort keys
+- [ ] JSON compare / diff
+
+### Encode / decode / convert
+- [ ] Number base converter: hex, binary, decimal, octal, arbitrary base 2-36 (BigInt)
+- [ ] Base64 encode/decode (text, URL-safe variant)
+- [ ] URL encode/decode
+
+### Security
+- [ ] JWT decoder
+- [ ] Hash generator: MD5, SHA-1, SHA-256, SHA-384, SHA-512, HMAC
+- [ ] UUID v4/v7 generator, ULID, NanoID
+
+### Time
+- [ ] Unix timestamp <-> date (seconds/ms, timezone aware)
+
+### Web
+- [ ] Regex tester (match highlight, groups, flags)
+
+### Frontend
+- [ ] Color converter (HEX/RGB/HSL/OKLCH) + WCAG contrast checker
+
+## Phase 2 - Batch 2
+
+### Data & format
+- [ ] JSON <-> YAML
+- [ ] JSON <-> CSV
+- [ ] JSON <-> XML
+- [ ] JSON <-> TOML
+- [ ] JSON -> TypeScript types / Go struct / Zod schema
+- [ ] JSONPath / jq-style query tester
+- [ ] YAML / XML / CSV validator and formatter
+- [ ] SQL formatter
+- [ ] Markdown preview
+- [ ] HTML / CSS / JS beautify and minify
+- [ ] Text diff (side by side)
+
+### Encode / decode / convert
+- [ ] Base64 for files and images <-> data URI
+- [ ] HTML entities encode/decode
+- [ ] Unicode escape (`\uXXXX`) encode/decode
+- [ ] Text <-> hex / binary / ASCII + ASCII/Unicode table
+- [ ] Base32, Base58, Punycode
+- [ ] Bit / byte tools: endianness, bit flags, two's complement
+
+### Security & crypto
+- [ ] JWT sign and verify (HS256, RS256, ES256)
+- [ ] AES encrypt / decrypt
+- [ ] RSA / ECDSA key pair generator, PBKDF2
+- [ ] Password generator and strength check
+- [ ] TOTP / OTP generator
+- [ ] PEM / X.509 certificate and CSR decoder, SSH key fingerprint
+- [ ] bcrypt / argon2 hash (WASM, still client-side)
+
+### Time
+- [ ] Timezone converter
+- [ ] Cron expression builder + explainer + next N runs
+- [ ] Date difference calculator, ISO 8601 duration
+
+### Web & network
+- [ ] cURL <-> fetch / axios / Go converter
+- [ ] URL parser, query string <-> JSON, query params builder
+- [ ] HTTP status codes, MIME types and headers reference
+- [ ] CIDR / subnet calculator, IP <-> integer, IPv6 expander
+- [ ] User-agent parser
+
+### Frontend & design
+- [ ] QR code generate and scan
+- [ ] CSS tools: gradient, box-shadow, px <-> rem
+- [ ] CSS flexbox / grid playground
+- [ ] Color palette generator
+
+### Code & text
+- [ ] Case converter (camel, snake, kebab, Pascal)
+- [ ] Text utilities: word/char counter, slugify, dedupe lines, sort lines
+- [ ] String escape / unescape
+- [ ] Lorem ipsum + fake data generator (names, emails, Indonesian addresses, dummy NIK/NPWP format)
+- [ ] `.env` <-> JSON
+- [ ] `.gitignore` generator, Dockerfile / compose snippets
+
+### Dev calculators
+- [ ] Byte / data size converter (KB vs KiB), bandwidth and transfer time
+- [ ] Percentage and ratio calculator
+- [ ] Math expression evaluator, unit converter
+
+## Phase 3 - Batch 3
+
+### Images
+- [ ] Image compress / resize / convert format (Canvas)
+- [ ] SVG optimizer and viewer
+- [ ] EXIF viewer
+- [ ] Favicon generator
+- [ ] Code snippet -> image
+
+### AWS & backend
+- [ ] AWS ARN parser
+- [ ] IAM policy formatter / validator
+- [ ] S3 presigned URL decoder
+- [ ] Lambda event samples (API Gateway, SQS, S3)
+- [ ] EventBridge cron expression (AWS format)
+- [ ] ULID / KSUID decoder
+- [ ] Go struct <-> JSON, TypeScript interface <-> JSON
