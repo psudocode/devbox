@@ -27,6 +27,47 @@ function GradeBadge({ pass, label }: { pass: boolean; label: string }) {
   );
 }
 
+interface ColorFieldProps {
+  id: string;
+  label: string;
+  value: string;
+  pickerValue: string;
+  pickerLabel: string;
+  placeholder?: string;
+  maxWidth: string;
+  onChange: (value: string) => void;
+}
+
+function ColorField({ id, label, value, pickerValue, pickerLabel, placeholder, maxWidth, onChange }: ColorFieldProps) {
+  return (
+    <div className="pane" style={{ flex: "1 1 14rem", maxWidth }}>
+      <div className="pane-header">
+        <label htmlFor={id}>{label}</label>
+      </div>
+      <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+        <input
+          id={id}
+          className="pane-text"
+          style={{ flex: 1, minWidth: 0, width: "auto" }}
+          type="text"
+          value={value}
+          placeholder={placeholder}
+          spellCheck={false}
+          autoComplete="off"
+          onChange={(e) => onChange(e.target.value)}
+        />
+        <input
+          type="color"
+          aria-label={pickerLabel}
+          className="color-picker-input"
+          value={pickerValue}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function ColorConverter() {
   const [state, setState] = useToolState<State>(TOOL_ID, DEFAULTS);
   const update = (patch: Partial<State>) => setState((s) => ({ ...s, ...patch }));
@@ -42,31 +83,17 @@ export default function ColorConverter() {
 
   return (
     <div>
-      <div className="toolbar">
-        <div className="pane" style={{ flex: 1, minWidth: "15rem" }}>
-          <div className="pane-header">
-            <label htmlFor="color-input">Color (HEX, rgb, hsl, oklch)</label>
-          </div>
-          <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-            <input
-              id="color-input"
-              className="pane-text"
-              type="text"
-              value={state.input}
-              placeholder="#3b82f6 or oklch(0.62 0.19 260)"
-              spellCheck={false}
-              autoComplete="off"
-              onChange={(e) => update({ input: e.target.value })}
-            />
-            <input
-              type="color"
-              aria-label="Color picker"
-              className="color-picker-input"
-              value={pickerHex}
-              onChange={(e) => update({ input: e.target.value })}
-            />
-          </div>
-        </div>
+      <div className="toolbar" style={{ alignItems: "flex-end" }}>
+        <ColorField
+          id="color-input"
+          label="Color (HEX, rgb, hsl, oklch)"
+          value={state.input}
+          pickerValue={pickerHex}
+          pickerLabel="Color picker"
+          placeholder="#3b82f6 or oklch(0.62 0.19 260)"
+          maxWidth="22rem"
+          onChange={(input) => update({ input })}
+        />
         <ShareButton toolId={TOOL_ID} state={state} />
         <button
           type="button"
@@ -112,29 +139,16 @@ export default function ColorConverter() {
       )}
 
       <h2 className="section-title">WCAG contrast checker</h2>
-      <div className="toolbar">
-        <div className="pane" style={{ flex: 1, minWidth: "12rem" }}>
-          <div className="pane-header">
-            <label htmlFor="fg-input">Foreground</label>
-          </div>
-          <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-            <input
-              id="fg-input"
-              className="pane-text"
-              type="text"
-              value={state.fg}
-              spellCheck={false}
-              onChange={(e) => update({ fg: e.target.value })}
-            />
-            <input
-              type="color"
-              aria-label="Foreground color picker"
-              className="color-picker-input"
-              value={fgParsed.ok ? formatHex(fgParsed.value.color, false) : "#ffffff"}
-              onChange={(e) => update({ fg: e.target.value })}
-            />
-          </div>
-        </div>
+      <div className="toolbar" style={{ alignItems: "flex-end" }}>
+        <ColorField
+          id="fg-input"
+          label="Foreground"
+          value={state.fg}
+          pickerValue={fgParsed.ok ? formatHex(fgParsed.value.color, false) : "#ffffff"}
+          pickerLabel="Foreground color picker"
+          maxWidth="16rem"
+          onChange={(fg) => update({ fg })}
+        />
 
         <Button
           size="small"
@@ -146,28 +160,15 @@ export default function ColorConverter() {
           Swap
         </Button>
 
-        <div className="pane" style={{ flex: 1, minWidth: "12rem" }}>
-          <div className="pane-header">
-            <label htmlFor="bg-input">Background</label>
-          </div>
-          <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-            <input
-              id="bg-input"
-              className="pane-text"
-              type="text"
-              value={state.bg}
-              spellCheck={false}
-              onChange={(e) => update({ bg: e.target.value })}
-            />
-            <input
-              type="color"
-              aria-label="Background color picker"
-              className="color-picker-input"
-              value={bgParsed.ok ? formatHex(bgParsed.value.color, false) : "#000000"}
-              onChange={(e) => update({ bg: e.target.value })}
-            />
-          </div>
-        </div>
+        <ColorField
+          id="bg-input"
+          label="Background"
+          value={state.bg}
+          pickerValue={bgParsed.ok ? formatHex(bgParsed.value.color, false) : "#000000"}
+          pickerLabel="Background color picker"
+          maxWidth="16rem"
+          onChange={(bg) => update({ bg })}
+        />
       </div>
 
       {!fgParsed.ok && <ErrorDisplay error={fgParsed.error} title="Invalid foreground color" />}
