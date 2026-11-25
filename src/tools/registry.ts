@@ -79,6 +79,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./json-types")),
   },
   {
+    id: "json-query",
+    name: "JSONPath / jq",
+    description: "Query JSON with JSONPath (RFC 9535) or a jq-style filter. See matches, paths and errors as you type.",
+    category: "Data & format",
+    keywords: ["json", "jsonpath", "jq", "query", "filter", "select", "path", "extract", "rfc 9535"],
+    acceptsText: true,
+    component: lazy(() => import("./json-query")),
+  },
+  {
     id: "number-base",
     name: "Number Base Converter",
     description: "Convert integers between bases 2-36 (hex, binary, decimal, octal). No size limit.",
