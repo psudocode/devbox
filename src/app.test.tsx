@@ -690,3 +690,29 @@ describe("unicode escape tool", () => {
     expect(container.textContent).toContain("beyond U+10FFFF");
   });
 });
+
+describe("text bytes tool", () => {
+  it("converts text to hex and back, reports errors, and searches the ASCII table", async () => {
+    await mount("#/text-bytes");
+    await type(await textarea("Text"), "Hé🐙");
+    expect((await textarea("Bytes")).value).toBe("48 c3 a9 f0 9f 90 99");
+    expect(container.querySelector(".status")?.textContent).toContain("7 bytes · 3 characters");
+    expect(container.querySelector('table[aria-label="Characters"]')?.textContent).toContain("F0 9F 90 99");
+
+    await click("Binary");
+    expect((await textarea("Bytes")).value.split(" ")[0]).toBe("01001000");
+
+    await click("Bytes → text");
+    await click("Hex");
+    await type(await textarea("Bytes"), "0x48 0xc3 0xa9");
+    expect((await textarea("Text")).value).toBe("Hé");
+    await type(await textarea("Bytes"), "48 zz");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain('"zz" is not a hex number');
+
+    const find = container.querySelector<HTMLInputElement>('input[placeholder="65, 0x41, A, LF, tab"]')!;
+    await type(find, "LF");
+    const rows = [...container.querySelectorAll('table[aria-label="ASCII table"] tbody tr')].map((r) => r.textContent);
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toContain("Line feed");
+  });
+});

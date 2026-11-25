@@ -178,6 +178,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./unicode-escape")),
   },
   {
+    id: "text-bytes",
+    name: "Text ↔ Hex / Binary / ASCII",
+    description: "Convert text to bytes in hex, binary, decimal or octal and back, in UTF-8, UTF-16, Latin-1 or ASCII. Includes an ASCII table and a code point breakdown.",
+    category: "Encode / decode / convert",
+    keywords: ["hex", "binary", "ascii", "bytes", "utf-8", "utf-16", "latin1", "octal", "decimal", "text", "string", "code point", "ascii table", "unicode"],
+    acceptsText: true,
+    component: lazy(() => import("./text-bytes")),
+  },
+  {
     id: "url-encode",
     name: "URL Encode / Decode",
     description: "Percent-encode and decode text for URLs: component, full URL and form (+) modes.",
