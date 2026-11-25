@@ -697,3 +697,99 @@ button[aria-pressed="true"].btn-small {
 .contrast-ratio {
   font-size: 0.95rem;
 }
+
+/* Text diff (side by side / unified) */
+.text-diff-wrap {
+  margin-top: 1rem;
+  overflow: auto;
+  border: 1px solid var(--colorNeutralStroke2);
+  border-radius: var(--borderRadiusMedium);
+}
+
+.text-diff {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.text-diff td {
+  padding: 0 0.5rem;
+  vertical-align: top;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.text-diff td.td-no {
+  width: 3.25rem;
+  text-align: right;
+  color: var(--colorNeutralForeground3);
+  user-select: none;
+  background: var(--colorNeutralBackground2);
+}
+
+.text-diff td.td-split {
+  border-left: 1px solid var(--colorNeutralStroke2);
+}
+
+.text-diff td.td-del {
+  background: var(--colorPaletteRedBackground1);
+}
+
+.text-diff td.td-add {
+  background: var(--colorPaletteGreenBackground1);
+}
+
+.text-diff td.td-empty {
+  background: var(--colorNeutralBackground3);
+}
+
+.text-diff td.td-del mark {
+  background: var(--colorPaletteRedBackground2);
+  color: inherit;
+  border-radius: 2px;
+}
+
+.text-diff td.td-add mark {
+  background: var(--colorPaletteGreenBackground2);
+  color: inherit;
+  border-radius: 2px;
+}
+
+.text-diff tr.td-skip td {
+  text-align: center;
+  padding: 0.25rem;
+  color: var(--colorNeutralForeground3);
+  background: var(--colorNeutralBackground2);
+  user-select: none;
+}
+
+.text-diff-unified {
+  margin: 0;
+  padding: 0.5rem 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.text-diff-unified span {
+  display: block;
+  padding: 0 0.75rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.text-diff-unified .ud-add {
+  background: var(--colorPaletteGreenBackground1);
+}
+
+.text-diff-unified .ud-del {
+  background: var(--colorPaletteRedBackground1);
+}
+
+.text-diff-unified .ud-hunk {
+  color: var(--colorNeutralForeground3);
+  background: var(--colorNeutralBackground2);
+}

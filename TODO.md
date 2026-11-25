@@ -51,30 +51,30 @@ Conventions:
 ## Phase 2 - Batch 2
 
 ### Data & format
-- [ ] JSON <-> YAML
-- [ ] JSON <-> CSV
-- [ ] JSON <-> XML
-- [ ] JSON <-> TOML
-- [ ] JSON -> TypeScript types / Go struct / Zod schema
-- [ ] JSONPath / jq-style query tester
-- [ ] YAML / XML / CSV validator and formatter
-- [ ] SQL formatter
-- [ ] Markdown preview
-- [ ] HTML / CSS / JS beautify and minify
-- [ ] Text diff (side by side)
+- [x] JSON <-> YAML
+- [x] JSON <-> CSV
+- [x] JSON <-> XML
+- [x] JSON <-> TOML
+- [x] JSON -> TypeScript types / Go struct / Zod schema
+- [x] JSONPath / jq-style query tester
+- [x] YAML / XML / CSV validator and formatter
+- [x] SQL formatter
+- [x] Markdown preview
+- [x] HTML / CSS / JS beautify and minify
+- [x] Text diff (side by side)
 
 ### Encode / decode / convert
-- [ ] Base64 for files and images <-> data URI
-- [ ] HTML entities encode/decode
-- [ ] Unicode escape (`\uXXXX`) encode/decode
-- [ ] Text <-> hex / binary / ASCII + ASCII/Unicode table
-- [ ] Base32, Base58, Punycode
-- [ ] Bit / byte tools: endianness, bit flags, two's complement
+- [x] Base64 for files and images <-> data URI
+- [x] HTML entities encode/decode
+- [x] Unicode escape (`\uXXXX`) encode/decode
+- [x] Text <-> hex / binary / ASCII + ASCII/Unicode table
+- [x] Base32, Base58, Punycode
+- [x] Bit / byte tools: endianness, bit flags, two's complement
 
 ### Security & crypto
-- [ ] JWT sign and verify (HS256, RS256, ES256)
-- [ ] AES encrypt / decrypt
-- [ ] RSA / ECDSA key pair generator, PBKDF2
+- [x] JWT sign and verify (HS256, RS256, ES256)
+- [x] AES encrypt / decrypt
+- [x] RSA / ECDSA key pair generator, PBKDF2
 - [ ] Password generator and strength check
 - [ ] TOTP / OTP generator
 - [ ] PEM / X.509 certificate and CSR decoder, SSH key fingerprint
