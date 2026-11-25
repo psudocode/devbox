@@ -52,6 +52,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./json-csv")),
   },
   {
+    id: "json-xml",
+    name: "JSON ↔ XML",
+    description: "Convert JSON to XML and back. Attributes as @key, text as #text, repeated elements as arrays.",
+    category: "Data & format",
+    keywords: ["json", "xml", "convert", "soap", "attributes", "cdata", "namespace"],
+    acceptsText: true,
+    component: lazy(() => import("./json-xml")),
+  },
+  {
     id: "number-base",
     name: "Number Base Converter",
     description: "Convert integers between bases 2-36 (hex, binary, decimal, octal). No size limit.",

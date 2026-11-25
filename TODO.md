@@ -53,7 +53,7 @@ Conventions:
 ### Data & format
 - [x] JSON <-> YAML
 - [x] JSON <-> CSV
-- [ ] JSON <-> XML
+- [x] JSON <-> XML
 - [ ] JSON <-> TOML
 - [ ] JSON -> TypeScript types / Go struct / Zod schema
 - [ ] JSONPath / jq-style query tester
