@@ -55,7 +55,7 @@ Conventions:
 - [x] JSON <-> CSV
 - [x] JSON <-> XML
 - [x] JSON <-> TOML
-- [ ] JSON -> TypeScript types / Go struct / Zod schema
+- [x] JSON -> TypeScript types / Go struct / Zod schema
 - [ ] JSONPath / jq-style query tester
 - [ ] YAML / XML / CSV validator and formatter
 - [ ] SQL formatter

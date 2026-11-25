@@ -70,6 +70,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./json-toml")),
   },
   {
+    id: "json-types",
+    name: "JSON → Types",
+    description: "Generate TypeScript types, Go structs or a Zod schema from a JSON sample. Merges array items, marks optional fields.",
+    category: "Data & format",
+    keywords: ["json", "typescript", "interface", "go", "golang", "struct", "zod", "schema", "types", "codegen", "quicktype"],
+    acceptsText: true,
+    component: lazy(() => import("./json-types")),
+  },
+  {
     id: "number-base",
     name: "Number Base Converter",
     description: "Convert integers between bases 2-36 (hex, binary, decimal, octal). No size limit.",
