@@ -388,3 +388,27 @@ describe("regex tester tool", () => {
   });
 });
 
+describe("color converter tool", () => {
+  it("converts HEX/RGB/HSL/OKLCH and checks WCAG contrast", async () => {
+    await mount("#/color-converter");
+    await type(await waitFor(() => container.querySelector<HTMLInputElement>("#color-input")), "rgb(255, 0, 0)");
+    const rows = [...container.querySelectorAll(".result-row")].map((r) => [
+      r.querySelector("dt")?.textContent,
+      r.querySelector("code")?.textContent,
+    ]);
+    expect(rows).toContainEqual(["HEX", "#ff0000"]);
+    expect(rows).toContainEqual(["HSL", "hsl(0, 100%, 50%)"]);
+
+    await type(container.querySelector<HTMLInputElement>("#fg-input")!, "#000000");
+    await type(container.querySelector<HTMLInputElement>("#bg-input")!, "#ffffff");
+    expect(container.textContent).toContain("21.00 : 1");
+    expect(container.textContent).toContain("AAA Normal (7:1): Pass");
+  });
+
+  it("shows an error for an invalid color", async () => {
+    await mount("#/color-converter");
+    await type(await waitFor(() => container.querySelector<HTMLInputElement>("#color-input")), "notacolor");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("Unrecognized color");
+  });
+});
+
