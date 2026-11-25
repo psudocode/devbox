@@ -295,12 +295,13 @@ kbd {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
+  align-items: stretch;
 }
 
 .pane {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.45rem;
   min-width: 0;
 }
 
@@ -309,6 +310,7 @@ kbd {
   justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
+  min-height: 28px;
   font-weight: 600;
   font-size: 0.875rem;
   color: var(--colorNeutralForeground2);
@@ -323,6 +325,7 @@ kbd {
 .pane-text {
   box-sizing: border-box;
   width: 100%;
+  flex: 1;
   padding: 0.65rem 0.8rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.875rem;
@@ -342,11 +345,17 @@ kbd {
 }
 
 input.pane-text {
+  flex: 0 0 auto;
   font-size: 0.925rem;
 }
 
 .btn-small {
-  padding: 0.25rem 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  height: 28px;
+  padding: 0 0.65rem;
   font-size: 0.825rem;
   font-family: inherit;
   font-weight: 500;
@@ -413,14 +422,32 @@ button[aria-pressed="true"].btn-small {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem 1rem;
+  gap: 0.5rem 0.85rem;
   margin-bottom: 0.85rem;
 }
 
-.toolbar select {
-  padding: 0.3rem 0.5rem;
-  font-family: inherit;
+.toolbar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-size: 0.85rem;
+  color: var(--colorNeutralForeground2);
+}
+
+.toolbar input[type="checkbox"] {
+  accent-color: var(--colorBrandBackground);
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.toolbar select,
+.pane-actions select {
+  height: 28px;
+  padding: 0 0.5rem;
+  font-family: inherit;
+  font-size: 0.825rem;
   color: var(--colorNeutralForeground1);
   background: var(--colorNeutralBackground1);
   border: 1px solid var(--colorNeutralStroke1);
