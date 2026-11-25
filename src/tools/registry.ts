@@ -43,6 +43,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./json-yaml")),
   },
   {
+    id: "json-csv",
+    name: "JSON ↔ CSV",
+    description: "Convert JSON arrays to CSV and back. Nested flattening, custom delimiters, quoted fields, type detection.",
+    category: "Data & format",
+    keywords: ["json", "csv", "tsv", "spreadsheet", "excel", "convert", "table", "flatten"],
+    acceptsText: true,
+    component: lazy(() => import("./json-csv")),
+  },
+  {
     id: "number-base",
     name: "Number Base Converter",
     description: "Convert integers between bases 2-36 (hex, binary, decimal, octal). No size limit.",

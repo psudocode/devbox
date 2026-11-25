@@ -52,7 +52,7 @@ Conventions:
 
 ### Data & format
 - [x] JSON <-> YAML
-- [ ] JSON <-> CSV
+- [x] JSON <-> CSV
 - [ ] JSON <-> XML
 - [ ] JSON <-> TOML
 - [ ] JSON -> TypeScript types / Go struct / Zod schema
