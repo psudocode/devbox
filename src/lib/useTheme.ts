@@ -29,9 +29,22 @@ export function initTheme(): void {
   applyTheme(loadThemePreference(safeLocalStorage()));
 }
 
+const listeners = new Set<(pref: ThemePreference) => void>();
+
+function notifyTheme(next: ThemePreference) {
+  for (const listener of listeners) listener(next);
+}
+
 export function useTheme() {
   const [preference, setPreference] = useState<ThemePreference>(() => loadThemePreference(safeLocalStorage()));
   const [resolved, setResolved] = useState<ResolvedTheme>(() => applyTheme(preference));
+
+  useEffect(() => {
+    listeners.add(setPreference);
+    return () => {
+      listeners.delete(setPreference);
+    };
+  }, []);
 
   useEffect(() => {
     setResolved(applyTheme(preference));
@@ -44,11 +57,10 @@ export function useTheme() {
   }, [preference]);
 
   const cycle = useCallback(() => {
-    setPreference((current) => {
-      const next = nextThemePreference(current);
-      saveThemePreference(safeLocalStorage(), next);
-      return next;
-    });
+    const current = loadThemePreference(safeLocalStorage());
+    const next = nextThemePreference(current);
+    saveThemePreference(safeLocalStorage(), next);
+    notifyTheme(next);
   }, []);
 
   return { preference, resolved, cycle };

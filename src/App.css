@@ -22,6 +22,10 @@
   gap: 0.25rem;
 }
 
+.sidebar > * {
+  flex-shrink: 0;
+}
+
 .sidebar-brand {
   display: flex;
   align-items: center;
