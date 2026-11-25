@@ -64,7 +64,7 @@ Conventions:
 - [x] Text diff (side by side)
 
 ### Encode / decode / convert
-- [ ] Base64 for files and images <-> data URI
+- [x] Base64 for files and images <-> data URI
 - [ ] HTML entities encode/decode
 - [ ] Unicode escape (`\uXXXX`) encode/decode
 - [ ] Text <-> hex / binary / ASCII + ASCII/Unicode table

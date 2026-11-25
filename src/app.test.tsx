@@ -615,3 +615,47 @@ describe("text diff tool", () => {
     expect(container.querySelector(".text-diff-wrap")).toBeNull();
   });
 });
+
+describe("base64 files tool", () => {
+  const PNG = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+
+  it("decodes a data URI, detects the type and offers a download", async () => {
+    await mount("#/base64-file");
+    await click("Base64 → File");
+    await type(await textarea("Base64 or data URI"), `data:image/jpeg;base64,${PNG}`);
+    await waitFor(() => container.querySelector(".status")?.textContent?.includes("image/png"));
+    expect(container.querySelector(".status")?.textContent).toContain("image/png");
+    expect(container.textContent).toContain("says image/jpeg, but the bytes look like image/png");
+
+    await type(await textarea("Base64 or data URI"), "aGVsbG8gd29ybGQ=");
+    await waitFor(() => findTextarea("Text preview"));
+    expect((await textarea("Text preview")).value).toBe("hello world");
+    expect(container.querySelector(".status")?.textContent).toContain("text/plain");
+
+    await type(await textarea("Base64 or data URI"), "###");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("Invalid character");
+  });
+
+  it("encodes a dropped file as a data URI", async () => {
+    await mount("#/base64-file");
+    const input = await waitFor(() => container.querySelector<HTMLInputElement>('input[type="file"]'));
+    const file = new File(["hello"], "hello.txt", { type: "text/plain" });
+    if (typeof file.arrayBuffer !== "function") {
+      // Older DOM implementations lack Blob.arrayBuffer; the decode test above covers the UI either way.
+      Object.defineProperty(file, "arrayBuffer", { value: async () => new TextEncoder().encode("hello").buffer });
+    }
+    await act(async () => {
+      Object.defineProperty(input, "files", { value: [file], configurable: true });
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+    expect((await textarea("Result")).value).toBe("data:text/plain;base64,aGVsbG8=");
+    expect(container.querySelector(".status")?.textContent).toContain("hello.txt");
+
+    const select = container.querySelector<HTMLSelectElement>("select")!;
+    await act(async () => {
+      Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, "value")!.set!.call(select, "img-tag");
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+    expect((await textarea("Result")).value).toBe('<img src="data:text/plain;base64,aGVsbG8=" alt="">');
+  });
+});

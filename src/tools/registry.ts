@@ -151,6 +151,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./base64")),
   },
   {
+    id: "base64-file",
+    name: "Base64 for Files & Images",
+    description: "Turn a file or image into Base64, a data URI, an <img> tag or CSS url() — and decode Base64 or a data URI back into a downloadable file.",
+    category: "Encode / decode / convert",
+    keywords: ["base64", "data uri", "data url", "image", "file", "png", "svg", "encode", "decode", "download", "mime", "inline"],
+    acceptsText: true,
+    component: lazy(() => import("./base64-file")),
+  },
+  {
     id: "url-encode",
     name: "URL Encode / Decode",
     description: "Percent-encode and decode text for URLs: component, full URL and form (+) modes.",
