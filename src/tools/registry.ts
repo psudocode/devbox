@@ -240,6 +240,14 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./aes-crypto")),
   },
   {
+    id: "key-generator",
+    name: "Key Pair & PBKDF2",
+    description: "Generate RSA, ECDSA and Ed25519 key pairs (PEM + JWK, with fingerprints) and derive keys with PBKDF2. Everything stays in your browser.",
+    category: "Security",
+    keywords: ["rsa", "ecdsa", "ed25519", "keypair", "key pair", "generate", "private key", "public key", "pem", "jwk", "pbkdf2", "kdf", "salt", "fingerprint", "thumbprint"],
+    component: lazy(() => import("./key-generator")),
+  },
+  {
     id: "hash-generator",
     name: "Hash Generator",
     description: "MD5, SHA-1, SHA-256, SHA-384, SHA-512 and HMAC for text or files, with checksum compare.",

@@ -835,3 +835,25 @@ describe("aes tool", () => {
     expect((await textarea("Decrypted text")).value).toBe("round trip");
   });
 });
+
+describe("key generator tool", () => {
+  it("generates a key pair and derives a PBKDF2 key matching a known vector", async () => {
+    await mount("#/key-generator");
+    await click("Generate key pair");
+    await waitFor(() => findTextarea("Private key (PKCS#8 PEM)")?.value.startsWith("-----BEGIN PRIVATE KEY-----"));
+    expect((await textarea("Public key (SPKI PEM)")).value).toContain("BEGIN PUBLIC KEY");
+    expect(container.textContent).toContain("JWK thumbprint");
+
+    await click("PBKDF2");
+    const iterations = await waitFor(() => container.querySelector<HTMLInputElement>('input[aria-label="Iterations"]'));
+    await type(iterations, "1");
+    await type(container.querySelector<HTMLInputElement>('input[aria-label="Salt"]')!, "73616c74"); // "salt" as hex
+    await type(await waitFor(() => container.querySelector<HTMLInputElement>('input[type="password"]')), "password");
+    await waitFor(() => findTextarea("Derived key")?.value);
+    expect((await textarea("Derived key")).value).toBe("120fb6cffcf8b32c43e7225256c4f837a86548c92ccc35480805987cb70be17b");
+
+    await type(iterations, "0");
+    await waitFor(() => container.querySelector('[role="alert"]'));
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("Iterations");
+  });
+});
