@@ -57,7 +57,7 @@ Conventions:
 - [x] JSON <-> TOML
 - [x] JSON -> TypeScript types / Go struct / Zod schema
 - [x] JSONPath / jq-style query tester
-- [ ] YAML / XML / CSV validator and formatter
+- [x] YAML / XML / CSV validator and formatter
 - [ ] SQL formatter
 - [ ] Markdown preview
 - [ ] HTML / CSS / JS beautify and minify

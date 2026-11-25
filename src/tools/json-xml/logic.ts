@@ -184,7 +184,7 @@ export function xmlToJson(xml: string, options: XmlToJsonOptions): ConvertResult
   return { ok: true, output: JSON.stringify({ [root.nodeName]: convert(root) }, null, space) };
 }
 
-function cleanParserMessage(message: string): string {
+export function cleanParserMessage(message: string): string {
   const lines = message
     .split("\n")
     .map((l) => l.trim())

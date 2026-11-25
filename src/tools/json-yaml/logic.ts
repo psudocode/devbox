@@ -83,7 +83,7 @@ function jsonReplacer(_key: string, value: unknown): unknown {
   return value;
 }
 
-function formatYamlError(err: YAMLParseError): string {
+export function formatYamlError(err: YAMLParseError): string {
   const pos = err.linePos?.[0];
   const where = pos ? `line ${pos.line}, column ${pos.col}: ` : "";
   // `yaml` appends a code frame after the first line of the message; keep only the headline.

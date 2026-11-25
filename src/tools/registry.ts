@@ -88,6 +88,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./json-query")),
   },
   {
+    id: "data-validator",
+    name: "YAML / XML / CSV Validator",
+    description: "Validate and format YAML, XML or CSV. Exact error positions, XML minify, CSV delimiter conversion.",
+    category: "Data & format",
+    keywords: ["yaml", "xml", "csv", "validate", "validator", "lint", "format", "beautify", "pretty", "minify", "well-formed", "delimiter"],
+    acceptsText: true,
+    component: lazy(() => import("./data-validator")),
+  },
+  {
     id: "number-base",
     name: "Number Base Converter",
     description: "Convert integers between bases 2-36 (hex, binary, decimal, octal). No size limit.",

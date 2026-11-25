@@ -97,10 +97,20 @@ export function jsonToCsv(json: string, options: JsonToCsvOptions): ConvertResul
 
 export type ParseCsvResult = { ok: true; rows: string[][] } | { ok: false; error: string };
 
+export type ParseCsvDetailedResult = { ok: true; rows: string[][]; lines: number[] } | { ok: false; error: string };
+
 /** RFC 4180 parser: quoted fields, escaped quotes (""), newlines inside quotes, CRLF or LF. */
 export function parseCsv(text: string, delimiter: Delimiter): ParseCsvResult {
+  const parsed = parseCsvDetailed(text, delimiter);
+  return parsed.ok ? { ok: true, rows: parsed.rows } : parsed;
+}
+
+/** Like parseCsv, and also returns the 1-based line where each record starts (`lines[i]` for `rows[i]`). */
+export function parseCsvDetailed(text: string, delimiter: Delimiter): ParseCsvDetailedResult {
   const src = text.charCodeAt(0) === 0xfeff ? text.slice(1) : text;
   const rows: string[][] = [];
+  const lines: number[] = [];
+  let rowStart = 1;
   let row: string[] = [];
   let field = "";
   let inQuotes = false;
@@ -117,6 +127,7 @@ export function parseCsv(text: string, delimiter: Delimiter): ParseCsvResult {
     if (row.length === 0 && field === "" && !fieldStarted) return;
     endField();
     rows.push(row);
+    lines.push(rowStart);
     row = [];
   };
 
@@ -148,6 +159,7 @@ export function parseCsv(text: string, delimiter: Delimiter): ParseCsvResult {
       if (ch === "\r" && src[i + 1] === "\n") i++;
       endRow();
       line++;
+      rowStart = line;
     } else {
       field += ch;
       fieldStarted = true;
@@ -155,7 +167,7 @@ export function parseCsv(text: string, delimiter: Delimiter): ParseCsvResult {
   }
   if (inQuotes) return { ok: false, error: `Line ${line}: a quoted field is never closed.` };
   if (field !== "" || fieldStarted || row.length > 0) endRow();
-  return { ok: true, rows };
+  return { ok: true, rows, lines };
 }
 
 export interface CsvToJsonOptions {
