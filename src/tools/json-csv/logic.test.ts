@@ -90,7 +90,7 @@ describe("parseCsv", () => {
   });
 
   it("handles CRLF, BOM, blank lines and a missing final newline", () => {
-    expect(parseCsv("﻿a,b\r\n\r\n1,2", ",")).toEqual({
+    expect(parseCsv("\uFEFFa,b\r\n\r\n1,2", ",")).toEqual({
       ok: true,
       rows: [
         ["a", "b"],
