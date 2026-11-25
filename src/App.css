@@ -426,7 +426,7 @@ button[aria-pressed="true"].btn-small {
   margin-bottom: 0.85rem;
 }
 
-.toolbar label {
+.toolbar > label {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -434,7 +434,7 @@ button[aria-pressed="true"].btn-small {
   color: var(--colorNeutralForeground2);
 }
 
-.toolbar input[type="checkbox"] {
+.toolbar input[type="checkbox"]:not([role="switch"]) {
   accent-color: var(--colorBrandBackground);
   width: 15px;
   height: 15px;
