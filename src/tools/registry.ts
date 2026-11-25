@@ -231,6 +231,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./jwt-signer")),
   },
   {
+    id: "aes-crypto",
+    name: "AES Encrypt / Decrypt",
+    description: "Encrypt and decrypt text with AES-GCM, CBC or CTR using a password (PBKDF2), a raw key + IV, or OpenSSL-compatible output.",
+    category: "Security",
+    keywords: ["aes", "encrypt", "decrypt", "encryption", "gcm", "cbc", "ctr", "openssl", "pbkdf2", "password", "cipher", "crypto", "iv", "key"],
+    acceptsText: true,
+    component: lazy(() => import("./aes-crypto")),
+  },
+  {
     id: "hash-generator",
     name: "Hash Generator",
     description: "MD5, SHA-1, SHA-256, SHA-384, SHA-512 and HMAC for text or files, with checksum compare.",

@@ -73,7 +73,7 @@ Conventions:
 
 ### Security & crypto
 - [x] JWT sign and verify (HS256, RS256, ES256)
-- [ ] AES encrypt / decrypt
+- [x] AES encrypt / decrypt
 - [ ] RSA / ECDSA key pair generator, PBKDF2
 - [ ] Password generator and strength check
 - [ ] TOTP / OTP generator

@@ -800,3 +800,38 @@ describe("jwt sign and verify tool", () => {
     expect(container.textContent).toContain("Payload (NOT verified)");
   });
 });
+
+describe("aes tool", () => {
+  it("decrypts real openssl output, round-trips with a password, and shows wrong-password errors", async () => {
+    await mount("#/aes-crypto");
+    const method = await waitFor(() => [...container.querySelectorAll("select")].find((s) => [...s.options].some((o) => o.value === "openssl")));
+    await act(async () => {
+      Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, "value")!.set!.call(method, "openssl");
+      method.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+    await click("Decrypt");
+    const password = await waitFor(() => container.querySelector<HTMLInputElement>('input[type="password"]'));
+    await type(password, "secret");
+    const iterations = container.querySelector<HTMLInputElement>('input[inputmode="numeric"]')!;
+    await type(iterations, "10000");
+    await type(await textarea("Encrypted text"), "U2FsdGVkX18GGvtMCQOzAyT+Xm1E0oh48nq7YCd4YFs=");
+    await waitFor(() => findTextarea("Decrypted text")?.value === "hello world");
+    expect((await textarea("Decrypted text")).value).toBe("hello world");
+
+    await type(password, "wrong");
+    await waitFor(() => container.querySelector('[role="alert"]'));
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("wrong password");
+
+    // encrypt, then decrypt the result with the same settings
+    await click("Encrypt");
+    await type(password, "pw");
+    await type(iterations, "1000");
+    await type(await textarea("Text to encrypt"), "round trip");
+    await waitFor(() => (findTextarea("Encrypted text")?.value ?? "").startsWith("U2FsdGVkX1"));
+    const encrypted = (await textarea("Encrypted text")).value;
+    await click("Decrypt");
+    await type(await textarea("Encrypted text"), encrypted);
+    await waitFor(() => findTextarea("Decrypted text")?.value === "round trip");
+    expect((await textarea("Decrypted text")).value).toBe("round trip");
+  });
+});
