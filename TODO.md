@@ -51,7 +51,7 @@ Conventions:
 ## Phase 2 - Batch 2
 
 ### Data & format
-- [ ] JSON <-> YAML
+- [x] JSON <-> YAML
 - [ ] JSON <-> CSV
 - [ ] JSON <-> XML
 - [ ] JSON <-> TOML

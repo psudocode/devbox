@@ -34,6 +34,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./json-diff")),
   },
   {
+    id: "json-yaml",
+    name: "JSON ↔ YAML",
+    description: "Convert JSON to YAML and back. Resolves anchors and merge keys, handles multi-document YAML.",
+    category: "Data & format",
+    keywords: ["json", "yaml", "yml", "convert", "config", "kubernetes", "openapi", "swagger"],
+    acceptsText: true,
+    component: lazy(() => import("./json-yaml")),
+  },
+  {
     id: "number-base",
     name: "Number Base Converter",
     description: "Convert integers between bases 2-36 (hex, binary, decimal, octal). No size limit.",
