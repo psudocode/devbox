@@ -4,3 +4,4 @@ export { FileDropZone } from "./FileDropZone";
 export { TextPane } from "./TextPane";
 export { ShareButton } from "./ShareButton";
 export { SendToMenu } from "./SendToMenu";
+export { ToolbarSwitch } from "./ToolbarSwitch";

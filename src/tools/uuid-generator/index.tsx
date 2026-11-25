@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ErrorDisplay, ShareButton, TextPane } from "../../components/ui";
+import { ErrorDisplay, ShareButton, TextPane, ToolbarSwitch } from "../../components/ui";
 import { useToolState } from "../../lib/useToolState";
 import {
   MAX_COUNT,
@@ -73,14 +73,18 @@ export default function UuidGenerator() {
           />
         </label>
         {(isUuid || options.kind === "ulid") && (
-          <label>
-            <input type="checkbox" checked={options.uppercase} onChange={(e) => update({ uppercase: e.target.checked })} /> Uppercase
-          </label>
+          <ToolbarSwitch
+            label="Uppercase"
+            checked={options.uppercase}
+            onChange={(uppercase) => update({ uppercase })}
+          />
         )}
         {isUuid && (
-          <label>
-            <input type="checkbox" checked={options.hyphens} onChange={(e) => update({ hyphens: e.target.checked })} /> Hyphens
-          </label>
+          <ToolbarSwitch
+            label="Hyphens"
+            checked={options.hyphens}
+            onChange={(hyphens) => update({ hyphens })}
+          />
         )}
         <button type="button" className="btn-small" onClick={() => setGeneration((g) => g + 1)}>
           Generate again

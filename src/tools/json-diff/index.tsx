@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { ErrorDisplay, ShareButton, TextPane } from "../../components/ui";
+import { ErrorDisplay, ShareButton, TextPane, ToolbarSwitch } from "../../components/ui";
 import { usePipelineInput } from "../../lib/usePipeline";
 import { useToolState } from "../../lib/useToolState";
 import { diffJson, summarize } from "./logic";
@@ -35,14 +35,11 @@ export default function JsonDiff() {
   return (
     <div>
       <div className="toolbar">
-        <label>
-          <input
-            type="checkbox"
-            checked={state.ignoreArrayOrder}
-            onChange={(e) => update({ ignoreArrayOrder: e.target.checked })}
-          />{" "}
-          Ignore array order
-        </label>
+        <ToolbarSwitch
+          label="Ignore array order"
+          checked={state.ignoreArrayOrder}
+          onChange={(ignoreArrayOrder) => update({ ignoreArrayOrder })}
+        />
         <button
           type="button"
           className="btn-small"

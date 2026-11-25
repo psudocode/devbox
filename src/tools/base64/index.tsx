@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { ErrorDisplay, SendToMenu, ShareButton, TextPane } from "../../components/ui";
+import { ErrorDisplay, SendToMenu, ShareButton, TextPane, ToolbarSwitch } from "../../components/ui";
 import { usePipelineInput } from "../../lib/usePipeline";
 import { useToolState } from "../../lib/useToolState";
 import { decodeText, encodeText } from "./logic";
@@ -54,14 +54,16 @@ export default function Base64Tool() {
         </div>
         {state.mode === "encode" && (
           <>
-            <label>
-              <input type="checkbox" checked={state.urlSafe} onChange={(e) => update({ urlSafe: e.target.checked })} /> URL-safe
-              (- and _)
-            </label>
-            <label>
-              <input type="checkbox" checked={state.padding} onChange={(e) => update({ padding: e.target.checked })} /> Padding
-              (=)
-            </label>
+            <ToolbarSwitch
+              label="URL-safe (- and _)"
+              checked={state.urlSafe}
+              onChange={(urlSafe) => update({ urlSafe })}
+            />
+            <ToolbarSwitch
+              label="Padding (=)"
+              checked={state.padding}
+              onChange={(padding) => update({ padding })}
+            />
           </>
         )}
         <button type="button" className="btn-small" onClick={swap} disabled={output === ""}>

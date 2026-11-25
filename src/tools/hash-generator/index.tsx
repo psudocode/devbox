@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CopyButton, ErrorDisplay, FileDropZone, ShareButton, TextPane } from "../../components/ui";
+import { CopyButton, ErrorDisplay, FileDropZone, ShareButton, TextPane, ToolbarSwitch } from "../../components/ui";
 import { formatBytes } from "../../lib/files";
 import { usePipelineInput } from "../../lib/usePipeline";
 import { useToolState } from "../../lib/useToolState";
@@ -85,9 +85,11 @@ export default function HashGenerator() {
             <option value="base64">Base64</option>
           </select>
         </label>
-        <label>
-          <input type="checkbox" checked={state.useHmac} onChange={(e) => update({ useHmac: e.target.checked })} /> HMAC
-        </label>
+        <ToolbarSwitch
+          label="HMAC"
+          checked={state.useHmac}
+          onChange={(useHmac) => update({ useHmac })}
+        />
         {!file && (
           <button type="button" className="btn-small" onClick={() => update({ input: "" })} disabled={!state.input}>
             Clear

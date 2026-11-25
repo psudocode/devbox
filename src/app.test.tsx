@@ -295,8 +295,8 @@ describe("hash generator tool", () => {
 
   it("computes HMAC when enabled", async () => {
     await mount("#/hash-generator");
-    const toggle = await waitFor(() => [...container.querySelectorAll("label")].find((l) => l.textContent?.trim() === "HMAC"));
-    await act(async () => toggle.querySelector("input")!.click());
+    const toggle = await waitFor(() => container.querySelector<HTMLInputElement>('input[role="switch"]'));
+    await act(async () => toggle.click());
     await type(await waitFor(() => container.querySelector<HTMLInputElement>("#hmac-key")), "Jefe");
     await type(await textarea("Text"), "what do ya want for nothing?");
     // RFC 2202 test case 2
