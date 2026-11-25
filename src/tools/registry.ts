@@ -97,6 +97,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./data-validator")),
   },
   {
+    id: "sql-formatter",
+    name: "SQL Formatter",
+    description: "Format SQL for PostgreSQL, MySQL, SQL Server, Oracle, BigQuery, Snowflake and more. Keyword case, indent, operators.",
+    category: "Data & format",
+    keywords: ["sql", "format", "beautify", "pretty", "query", "postgres", "postgresql", "mysql", "sqlite", "tsql", "oracle", "bigquery", "snowflake"],
+    acceptsText: true,
+    component: lazy(() => import("./sql-formatter")),
+  },
+  {
     id: "number-base",
     name: "Number Base Converter",
     description: "Convert integers between bases 2-36 (hex, binary, decimal, octal). No size limit.",

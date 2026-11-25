@@ -58,7 +58,7 @@ Conventions:
 - [x] JSON -> TypeScript types / Go struct / Zod schema
 - [x] JSONPath / jq-style query tester
 - [x] YAML / XML / CSV validator and formatter
-- [ ] SQL formatter
+- [x] SQL formatter
 - [ ] Markdown preview
 - [ ] HTML / CSS / JS beautify and minify
 - [ ] Text diff (side by side)

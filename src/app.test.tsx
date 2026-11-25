@@ -531,3 +531,18 @@ describe("data validator tool", () => {
     expect(container.querySelector('[role="alert"]')?.textContent).toContain("never closed");
   });
 });
+
+describe("sql formatter tool", () => {
+  it("formats SQL, switches options and reports parse errors", async () => {
+    await mount("#/sql-formatter");
+    await type(await textarea("SQL"), "select a,b from t where x=1 and y=2");
+    expect((await textarea("Formatted SQL")).value).toBe("SELECT\n  a,\n  b\nFROM\n  t\nWHERE\n  x = 1\n  AND y = 2\n");
+    expect(container.querySelector(".status")?.textContent).toContain("Formatted 1 statement");
+
+    await type(await textarea("SQL"), "select 1; select 2");
+    expect(container.querySelector(".status")?.textContent).toContain("Formatted 2 statements");
+
+    await type(await textarea("SQL"), "select 'abc from t");
+    expect(container.querySelector('[role="alert"]')?.textContent).toMatch(/line 1 column 8/);
+  });
+});
