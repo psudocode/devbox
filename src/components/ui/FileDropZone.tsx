@@ -1,4 +1,5 @@
 import { useRef, useState, type DragEvent } from "react";
+import { ArrowUpload24Regular } from "@fluentui/react-icons";
 import { formatBytes, matchesAccept } from "../../lib/files";
 import { ErrorDisplay } from "./ErrorDisplay";
 
@@ -56,7 +57,8 @@ export function FileDropZone({ onFile, accept, maxBytes, label = "Drop a file he
         onDragLeave={() => setDragging(false)}
         onDrop={onDrop}
       >
-        {label}
+        <ArrowUpload24Regular />
+        <span>{label}</span>
         <input
           ref={inputRef}
           type="file"

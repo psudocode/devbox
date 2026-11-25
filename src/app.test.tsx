@@ -50,6 +50,11 @@ const textarea = (label: string) => waitFor(() => findTextarea(label));
 
 beforeEach(() => {
   localStorage.clear();
+  window.ResizeObserver ??= class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  } as unknown as typeof ResizeObserver;
   window.matchMedia = ((query: string) => ({
     matches: false,
     media: query,
@@ -93,6 +98,22 @@ describe("app shell", () => {
     await flush();
     expect(window.location.hash).toBe("#/json-formatter");
     expect(container.querySelector('[role="dialog"]')).toBeNull();
+  });
+
+  it("cycles theme and updates FluentProvider + document theme", async () => {
+    await mount("");
+    const toggle = container.querySelector<HTMLButtonElement>("button.theme-toggle")!;
+    const provider = container.querySelector<HTMLElement>(".fui-FluentProvider")!;
+    const initialBg = getComputedStyle(provider).getPropertyValue("--colorNeutralBackground1");
+    expect(document.documentElement.dataset.theme).toBe("light");
+
+    // system -> light -> dark
+    await act(async () => toggle.click());
+    expect(toggle.textContent).toContain("Light");
+    await act(async () => toggle.click());
+    expect(toggle.textContent).toContain("Dark");
+    expect(document.documentElement.dataset.theme).toBe("dark");
+    expect(getComputedStyle(provider).getPropertyValue("--colorNeutralBackground1")).not.toBe(initialBg);
   });
 });
 

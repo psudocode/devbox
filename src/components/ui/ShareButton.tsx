@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Button } from "@fluentui/react-components";
+import { Share16Regular } from "@fluentui/react-icons";
 import { copyText } from "../../lib/clipboard";
 import { toolHash } from "../../lib/router";
 import { MAX_SHARE_STATE_LENGTH, encodeState } from "../../lib/toolState";
@@ -25,8 +27,8 @@ export function ShareButton({ toolId, state }: Props) {
   };
 
   return (
-    <button type="button" className="btn-small" onClick={onClick}>
+    <Button size="small" appearance="subtle" icon={<Share16Regular />} onClick={onClick}>
       {message ?? "Share link"}
-    </button>
+    </Button>
   );
 }

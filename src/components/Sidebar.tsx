@@ -1,3 +1,5 @@
+import { Button } from "@fluentui/react-components";
+import { Search16Regular, Toolbox20Regular } from "@fluentui/react-icons";
 import { HOME_HASH, toolHash } from "../lib/router";
 import { ThemeToggle } from "./ThemeToggle";
 import { useFavorites, useRecent } from "../lib/useUserLists";
@@ -20,11 +22,19 @@ export function Sidebar({
   return (
     <nav className="sidebar" aria-label="Tools">
       <a className="sidebar-brand" href={HOME_HASH}>
-        DevBox
+        <Toolbox20Regular />
+        <span>DevBox</span>
       </a>
-      <button type="button" className="sidebar-search" onClick={onSearch}>
-        Search tools… <kbd>Ctrl K</kbd>
-      </button>
+      <Button
+        appearance="outline"
+        size="small"
+        icon={<Search16Regular />}
+        className="sidebar-search"
+        onClick={onSearch}
+      >
+        <span>Search tools…</span>
+        <kbd>Ctrl K</kbd>
+      </Button>
       {quickLists.map(
         (list) =>
           list.ids.length > 0 && (

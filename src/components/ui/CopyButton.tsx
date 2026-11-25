@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { Button } from "@fluentui/react-components";
+import { Checkmark16Regular, Copy16Regular } from "@fluentui/react-icons";
 import { copyText } from "../../lib/clipboard";
 
 interface Props {
@@ -20,8 +22,14 @@ export function CopyButton({ text, label = "Copy" }: Props) {
   };
 
   return (
-    <button type="button" className="btn-small" onClick={onClick} disabled={text === ""}>
+    <Button
+      size="small"
+      appearance="subtle"
+      icon={state === "copied" ? <Checkmark16Regular /> : <Copy16Regular />}
+      onClick={onClick}
+      disabled={text === ""}
+    >
       {state === "copied" ? "Copied!" : state === "failed" ? "Copy failed" : label}
-    </button>
+    </Button>
   );
 }

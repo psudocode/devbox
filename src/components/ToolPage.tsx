@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { Body1, Link, Spinner, Title2 } from "@fluentui/react-components";
 import { HOME_HASH } from "../lib/router";
 import { registry } from "../tools/registry";
 import { FavoriteButton } from "./FavoriteButton";
@@ -9,10 +10,12 @@ export function ToolPage({ toolId }: { toolId: string }) {
   if (!tool) {
     return (
       <div className="tool-page">
-        <h1>Tool not found</h1>
-        <p>
-          There is no tool called <code>{toolId}</code>. <a href={HOME_HASH}>Back to all tools</a>.
-        </p>
+        <Title2 as="h1" block>
+          Tool not found
+        </Title2>
+        <Body1 as="p">
+          There is no tool called <code>{toolId}</code>. <Link href={HOME_HASH}>Back to all tools</Link>.
+        </Body1>
       </div>
     );
   }
@@ -20,12 +23,18 @@ export function ToolPage({ toolId }: { toolId: string }) {
   const Tool = tool.component;
   return (
     <div className="tool-page">
-      <header>
-        <h1>{tool.name}</h1>
-        <p className="muted">{tool.description}</p>
+      <header className="tool-page-header">
+        <div>
+          <Title2 as="h1" block>
+            {tool.name}
+          </Title2>
+          <Body1 as="p" className="muted">
+            {tool.description}
+          </Body1>
+        </div>
         <FavoriteButton toolId={tool.id} />
       </header>
-      <Suspense fallback={<p className="muted">Loading…</p>}>
+      <Suspense fallback={<Spinner size="small" label="Loading…" />}>
         <Tool />
       </Suspense>
     </div>

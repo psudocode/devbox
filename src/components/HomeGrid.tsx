@@ -1,3 +1,4 @@
+import { Body1, Subtitle1, Title1 } from "@fluentui/react-components";
 import { toolHash } from "../lib/router";
 import { useFavorites, useRecent } from "../lib/useUserLists";
 import { registry } from "../tools/registry";
@@ -22,14 +23,22 @@ export function HomeGrid() {
   ];
   return (
     <div className="home">
-      <h1>DevBox</h1>
-      <p>Small developer tools in one place. Runs entirely in your browser, no server.</p>
+      <header className="home-header">
+        <Title1 as="h1" block>
+          DevBox
+        </Title1>
+        <Body1 as="p" className="muted">
+          Small developer tools in one place. Runs entirely in your browser, no server.
+        </Body1>
+      </header>
       {groups.length === 0 && <p className="muted">Tools coming soon.</p>}
       {quickLists.map(
         (list) =>
           list.ids.length > 0 && (
             <section key={list.title} className="home-group">
-              <h2>{list.title}</h2>
+              <Subtitle1 as="h2" block>
+                {list.title}
+              </Subtitle1>
               <div className="grid">
                 {list.ids.map((id) => {
                   const tool = registry.get(id);
@@ -41,7 +50,9 @@ export function HomeGrid() {
       )}
       {groups.map((group) => (
         <section key={group.category} className="home-group">
-          <h2>{group.category}</h2>
+          <Subtitle1 as="h2" block>
+            {group.category}
+          </Subtitle1>
           <div className="grid">
             {group.tools.map((tool) => (
               <ToolCard key={tool.id} tool={tool} />
