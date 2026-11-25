@@ -160,6 +160,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./base64-file")),
   },
   {
+    id: "html-entities",
+    name: "HTML Entities",
+    description: "Encode text to HTML entities (names, decimal or hex) and decode every named or numeric entity back.",
+    category: "Encode / decode / convert",
+    keywords: ["html", "entities", "entity", "escape", "unescape", "amp", "nbsp", "encode", "decode", "xml", "special characters"],
+    acceptsText: true,
+    component: lazy(() => import("./html-entities")),
+  },
+  {
     id: "url-encode",
     name: "URL Encode / Decode",
     description: "Percent-encode and decode text for URLs: component, full URL and form (+) modes.",

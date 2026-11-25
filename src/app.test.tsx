@@ -659,3 +659,18 @@ describe("base64 files tool", () => {
     expect((await textarea("Result")).value).toBe('<img src="data:text/plain;base64,aGVsbG8=" alt="">');
   });
 });
+
+describe("html entities tool", () => {
+  it("encodes, decodes, swaps and flags invalid entities", async () => {
+    await mount("#/html-entities");
+    await type(await textarea("Text"), `<a href="x">Tom & 'Jerry'</a>`);
+    expect((await textarea("Encoded")).value).toBe("&lt;a href=&quot;x&quot;&gt;Tom &amp; &#39;Jerry&#39;&lt;/a&gt;");
+
+    await click("Swap");
+    expect((await textarea("Decoded")).value).toBe(`<a href="x">Tom & 'Jerry'</a>`);
+
+    await type(await textarea("Text with entities"), "caf&eacute; &bogus; &#169;");
+    expect((await textarea("Decoded")).value).toBe("café &bogus; ©");
+    expect(container.textContent).toContain("Not valid entities, left as written: &bogus;");
+  });
+});

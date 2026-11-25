@@ -65,7 +65,7 @@ Conventions:
 
 ### Encode / decode / convert
 - [x] Base64 for files and images <-> data URI
-- [ ] HTML entities encode/decode
+- [x] HTML entities encode/decode
 - [ ] Unicode escape (`\uXXXX`) encode/decode
 - [ ] Text <-> hex / binary / ASCII + ASCII/Unicode table
 - [ ] Base32, Base58, Punycode
