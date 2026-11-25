@@ -68,7 +68,7 @@ Conventions:
 - [x] HTML entities encode/decode
 - [x] Unicode escape (`\uXXXX`) encode/decode
 - [x] Text <-> hex / binary / ASCII + ASCII/Unicode table
-- [ ] Base32, Base58, Punycode
+- [x] Base32, Base58, Punycode
 - [ ] Bit / byte tools: endianness, bit flags, two's complement
 
 ### Security & crypto

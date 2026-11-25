@@ -187,6 +187,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./text-bytes")),
   },
   {
+    id: "base-encodings",
+    name: "Base32 / Base58 / Punycode",
+    description: "Encode and decode Base32 (RFC 4648, hex, Crockford), Base58 (Bitcoin, Flickr, Ripple) and Punycode / IDN domain names.",
+    category: "Encode / decode / convert",
+    keywords: ["base32", "base58", "punycode", "idn", "xn--", "idna", "domain", "crockford", "bitcoin", "totp", "encode", "decode", "internationalized domain"],
+    acceptsText: true,
+    component: lazy(() => import("./base-encodings")),
+  },
+  {
     id: "url-encode",
     name: "URL Encode / Decode",
     description: "Percent-encode and decode text for URLs: component, full URL and form (+) modes.",

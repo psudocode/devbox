@@ -716,3 +716,27 @@ describe("text bytes tool", () => {
     expect(rows[0]).toContain("Line feed");
   });
 });
+
+describe("base32 / base58 / punycode tool", () => {
+  it("encodes and decodes each encoding and reports errors", async () => {
+    await mount("#/base-encodings");
+    await type(await textarea("Text"), "foobar");
+    expect((await textarea("Base32")).value).toBe("MZXW6YTBOI======");
+
+    await click("Base58");
+    expect((await textarea("Base58")).value).toBe("t1Zv2yaZ");
+
+    await click("Decode");
+    await type(await textarea("Base58"), "t1Zv2yaZ");
+    expect((await textarea("Text")).value).toBe("foobar");
+    await type(await textarea("Base58"), "0OIl");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("leaves out 0, O, I and l");
+
+    await click("Punycode");
+    await click("Encode");
+    await type(await textarea("Domain name"), "München.de");
+    expect((await textarea("ASCII domain (xn--…)")).value).toBe("xn--mnchen-3ya.de");
+    await click("Swap");
+    expect((await textarea("Domain name")).value).toBe("münchen.de");
+  });
+});
