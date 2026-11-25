@@ -69,7 +69,7 @@ Conventions:
 - [x] Unicode escape (`\uXXXX`) encode/decode
 - [x] Text <-> hex / binary / ASCII + ASCII/Unicode table
 - [x] Base32, Base58, Punycode
-- [ ] Bit / byte tools: endianness, bit flags, two's complement
+- [x] Bit / byte tools: endianness, bit flags, two's complement
 
 ### Security & crypto
 - [ ] JWT sign and verify (HS256, RS256, ES256)

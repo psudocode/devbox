@@ -196,6 +196,14 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./base-encodings")),
   },
   {
+    id: "bit-tools",
+    name: "Bits & Bytes",
+    description: "Two's complement for any width, endianness and byte swapping, and a bit flag editor with named flags. BigInt-exact.",
+    category: "Encode / decode / convert",
+    keywords: ["bit", "byte", "twos complement", "two's complement", "signed", "unsigned", "endian", "endianness", "byte swap", "htonl", "flags", "bitmask", "bit flags", "binary", "int8", "int32", "int64"],
+    component: lazy(() => import("./bit-tools")),
+  },
+  {
     id: "url-encode",
     name: "URL Encode / Decode",
     description: "Percent-encode and decode text for URLs: component, full URL and form (+) modes.",

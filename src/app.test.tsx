@@ -740,3 +740,39 @@ describe("base32 / base58 / punycode tool", () => {
     expect((await textarea("Domain name")).value).toBe("münchen.de");
   });
 });
+
+describe("bits and bytes tool", () => {
+  const setInput = async (selector: string, value: string) => type(await waitFor(() => container.querySelector<HTMLInputElement>(selector)), value);
+  const rowValue = (label: string) =>
+    [...container.querySelectorAll(".result-row")].find((r) => r.querySelector("dt")?.textContent === label)?.querySelector("code")?.textContent;
+
+  it("shows two's complement, byte swaps and toggles bit flags", async () => {
+    await mount("#/bit-tools");
+    await waitFor(() => rowValue("Signed"));
+    expect(rowValue("Signed")).toBe("-1");
+    expect(rowValue("Unsigned")).toBe("255");
+    expect(rowValue("Binary")).toBe("1111 1111");
+
+    await setInput('input[placeholder="-1, 255, 0xFF, 0b1010"]', "300");
+    await waitFor(() => container.textContent?.includes("does not fit in 8 bits"));
+    expect(rowValue("Unsigned")).toBe("44");
+
+    await click("Endianness");
+    await waitFor(() => rowValue("Read as little endian"));
+    expect(rowValue("Reversed (byte swap)")).toBe("78 56 34 12");
+    expect(rowValue("Read as big endian")).toBe("305419896 (0x12345678)");
+    expect(rowValue("Read as little endian")).toBe("2018915346 (0x78563412)");
+
+    await click("Bit flags");
+    await waitFor(() => rowValue("Flags set"));
+    expect(rowValue("Flags set")).toBe("READ | EXEC");
+    await click("WRITE");
+    await waitFor(() => rowValue("Flags set")?.includes("WRITE"));
+    expect(rowValue("Flags set")).toBe("READ | WRITE | EXEC");
+    expect(rowValue("Decimal")).toBe("7");
+    const bit3 = container.querySelector<HTMLButtonElement>('button[aria-label="Bit 3"]')!;
+    await act(async () => bit3.click());
+    await waitFor(() => rowValue("Decimal") === "15");
+    expect(rowValue("Flags set")).toBe("READ | WRITE | EXEC | HIDDEN");
+  });
+});
