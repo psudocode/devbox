@@ -674,3 +674,19 @@ describe("html entities tool", () => {
     expect(container.textContent).toContain("Not valid entities, left as written: &bogus;");
   });
 });
+
+describe("unicode escape tool", () => {
+  it("escapes, unescapes and reports facts about the text", async () => {
+    await mount("#/unicode-escape");
+    await type(await textarea("Text"), "café 🐙");
+    expect((await textarea("Escaped")).value).toBe("caf\\u00e9 \\ud83d\\udc19");
+    expect(container.querySelector(".status")?.textContent).toContain("1 outside the BMP");
+
+    await click("Swap");
+    expect((await textarea("Text")).value).toBe("café 🐙");
+    expect(container.querySelector(".status")?.textContent).toContain("3 escapes decoded"); // é plus the two halves of the emoji
+
+    await type(await textarea("Escaped text"), "\\u{110000}");
+    expect(container.textContent).toContain("beyond U+10FFFF");
+  });
+});

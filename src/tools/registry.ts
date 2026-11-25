@@ -169,6 +169,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./html-entities")),
   },
   {
+    id: "unicode-escape",
+    name: "Unicode Escape",
+    description: "Escape text as \\uXXXX, \\u{X}, \\UXXXXXXXX, CSS or U+XXXX, and decode any of them back. Emoji handled as one character.",
+    category: "Encode / decode / convert",
+    keywords: ["unicode", "escape", "unescape", "u+", "utf-16", "surrogate", "emoji", "codepoint", "code point", "\\u", "json", "native2ascii"],
+    acceptsText: true,
+    component: lazy(() => import("./unicode-escape")),
+  },
+  {
     id: "url-encode",
     name: "URL Encode / Decode",
     description: "Percent-encode and decode text for URLs: component, full URL and form (+) modes.",
