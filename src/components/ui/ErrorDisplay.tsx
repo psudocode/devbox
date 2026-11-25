@@ -1,3 +1,5 @@
+import { MessageBar, MessageBarBody, MessageBarTitle } from "@fluentui/react-components";
+
 interface Props {
   /** Error message or Error object. Renders nothing when empty. */
   error: string | Error | null | undefined;
@@ -9,9 +11,11 @@ export function ErrorDisplay({ error, title = "Error" }: Props) {
   const message = typeof error === "string" ? error : error.message;
   if (!message) return null;
   return (
-    <div className="error-display" role="alert">
-      <strong>{title}</strong>
-      <pre>{message}</pre>
-    </div>
+    <MessageBar intent="error" className="error-display" role="alert">
+      <MessageBarBody>
+        <MessageBarTitle>{title}</MessageBarTitle>
+        <pre>{message}</pre>
+      </MessageBarBody>
+    </MessageBar>
   );
 }

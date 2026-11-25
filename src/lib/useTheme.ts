@@ -31,13 +31,14 @@ export function initTheme(): void {
 
 export function useTheme() {
   const [preference, setPreference] = useState<ThemePreference>(() => loadThemePreference(safeLocalStorage()));
+  const [resolved, setResolved] = useState<ResolvedTheme>(() => applyTheme(preference));
 
   useEffect(() => {
-    applyTheme(preference);
+    setResolved(applyTheme(preference));
     if (preference !== "system") return;
     // Follow live system changes only while the user has not overridden.
     const media = window.matchMedia(DARK_QUERY);
-    const onChange = () => applyTheme("system");
+    const onChange = () => setResolved(applyTheme("system"));
     media.addEventListener("change", onChange);
     return () => media.removeEventListener("change", onChange);
   }, [preference]);
@@ -50,5 +51,5 @@ export function useTheme() {
     });
   }, []);
 
-  return { preference, cycle };
+  return { preference, resolved, cycle };
 }

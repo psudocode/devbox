@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Badge } from "@fluentui/react-components";
+import { Search20Regular } from "@fluentui/react-icons";
 import { moveSelection, searchTools } from "../lib/search";
 import { toolHash } from "../lib/router";
 import { registry } from "../tools/registry";
@@ -58,19 +60,22 @@ export function CommandPalette({ open, onClose }: Props) {
         onMouseDown={(e) => e.stopPropagation()}
         onKeyDown={onKeyDown}
       >
-        <input
-          ref={inputRef}
-          className="palette-input"
-          type="text"
-          placeholder="Search tools…"
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setSelected(0);
-          }}
-          aria-controls="palette-results"
-          aria-activedescendant={results[selected] ? `palette-item-${results[selected].id}` : undefined}
-        />
+        <div className="palette-search-row">
+          <Search20Regular />
+          <input
+            ref={inputRef}
+            className="palette-input"
+            type="text"
+            placeholder="Search tools…"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setSelected(0);
+            }}
+            aria-controls="palette-results"
+            aria-activedescendant={results[selected] ? `palette-item-${results[selected].id}` : undefined}
+          />
+        </div>
         <ul id="palette-results" className="palette-results" role="listbox">
           {results.length === 0 && <li className="palette-empty muted">No tools found</li>}
           {results.map((tool, i) => (
@@ -83,7 +88,12 @@ export function CommandPalette({ open, onClose }: Props) {
               onMouseEnter={() => setSelected(i)}
               onClick={() => go(i)}
             >
-              <strong>{tool.name}</strong>
+              <div className="palette-item-top">
+                <strong>{tool.name}</strong>
+                <Badge appearance="tint" size="small">
+                  {tool.category}
+                </Badge>
+              </div>
               <span className="muted small">{tool.description}</span>
             </li>
           ))}
