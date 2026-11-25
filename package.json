@@ -14,6 +14,7 @@
   "dependencies": {
     "@fluentui/react-components": "^9.75.3",
     "@fluentui/react-icons": "^2.0.347",
+    "marked": "^18.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "smol-toml": "^1.9.1",

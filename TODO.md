@@ -59,7 +59,7 @@ Conventions:
 - [x] JSONPath / jq-style query tester
 - [x] YAML / XML / CSV validator and formatter
 - [x] SQL formatter
-- [ ] Markdown preview
+- [x] Markdown preview
 - [ ] HTML / CSS / JS beautify and minify
 - [ ] Text diff (side by side)
 

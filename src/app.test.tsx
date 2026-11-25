@@ -546,3 +546,24 @@ describe("sql formatter tool", () => {
     expect(container.querySelector('[role="alert"]')?.textContent).toMatch(/line 1 column 8/);
   });
 });
+
+describe("markdown preview tool", () => {
+  it("renders into a sandboxed iframe, escapes raw HTML and shows the HTML source", async () => {
+    await mount("#/markdown-preview");
+    await type(await textarea("Markdown"), "# Hi\n\n**bold** <b>raw</b> [x](javascript:alert(1))");
+    const frame = await waitFor(() => container.querySelector<HTMLIFrameElement>('iframe[title="Markdown preview"]'));
+    expect(frame.getAttribute("sandbox")).toBe("allow-popups allow-popups-to-escape-sandbox");
+    expect(frame.getAttribute("sandbox")).not.toContain("allow-scripts");
+    const doc = frame.getAttribute("srcdoc") ?? "";
+    expect(doc).toContain("<h1>Hi</h1>");
+    expect(doc).toContain("<strong>bold</strong>");
+    expect(doc).toContain("&lt;b&gt;raw&lt;/b&gt;");
+    expect(doc).not.toContain("javascript:");
+    expect(doc).toContain("default-src 'none'");
+    expect(container.querySelector(".status")?.textContent).toContain("words");
+
+    await click("HTML");
+    expect((await textarea("HTML")).value).toContain("<h1>Hi</h1>");
+    expect(container.querySelector("iframe")).toBeNull();
+  });
+});

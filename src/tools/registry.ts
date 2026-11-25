@@ -106,6 +106,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./sql-formatter")),
   },
   {
+    id: "markdown-preview",
+    name: "Markdown Preview",
+    description: "Live Markdown preview (GitHub flavored) in a locked-down sandbox. Copy the HTML, see the outline and word count.",
+    category: "Data & format",
+    keywords: ["markdown", "md", "preview", "render", "gfm", "readme", "html", "table"],
+    acceptsText: true,
+    component: lazy(() => import("./markdown-preview")),
+  },
+  {
     id: "number-base",
     name: "Number Base Converter",
     description: "Convert integers between bases 2-36 (hex, binary, decimal, octal). No size limit.",
