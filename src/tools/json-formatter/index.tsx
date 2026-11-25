@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Switch } from "@fluentui/react-components";
 import { ErrorDisplay, SendToMenu, ShareButton, TextPane } from "../../components/ui";
 import { byteSize } from "./size";
 import { useToolState } from "../../lib/useToolState";
@@ -59,10 +60,11 @@ export default function JsonFormatter() {
             </select>
           </label>
         )}
-        <label>
-          <input type="checkbox" checked={state.sortKeys} onChange={(e) => update({ sortKeys: e.target.checked })} /> Sort
-          keys
-        </label>
+        <Switch
+          label="Sort keys"
+          checked={state.sortKeys}
+          onChange={(_, data) => update({ sortKeys: data.checked })}
+        />
         <ShareButton toolId={TOOL_ID} state={state} />
         <button type="button" className="btn-small" onClick={() => update({ input: "" })} disabled={!state.input}>
           Clear

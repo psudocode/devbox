@@ -444,14 +444,19 @@ button[aria-pressed="true"].btn-small {
 
 .toolbar select,
 .pane-actions select {
+  appearance: none;
   height: 28px;
-  padding: 0 0.5rem;
+  padding: 0 1.85rem 0 0.65rem;
   font-family: inherit;
   font-size: 0.825rem;
   color: var(--colorNeutralForeground1);
-  background: var(--colorNeutralBackground1);
+  background-color: var(--colorNeutralBackground1);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 4.5L6 8L9.5 4.5' stroke='%23888888' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.55rem center;
   border: 1px solid var(--colorNeutralStroke1);
   border-radius: var(--borderRadiusMedium);
+  cursor: pointer;
 }
 
 .status {

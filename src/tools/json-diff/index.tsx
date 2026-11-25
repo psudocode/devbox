@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Switch } from "@fluentui/react-components";
 import { ErrorDisplay, ShareButton, TextPane } from "../../components/ui";
 import { usePipelineInput } from "../../lib/usePipeline";
 import { useToolState } from "../../lib/useToolState";
@@ -35,14 +36,11 @@ export default function JsonDiff() {
   return (
     <div>
       <div className="toolbar">
-        <label>
-          <input
-            type="checkbox"
-            checked={state.ignoreArrayOrder}
-            onChange={(e) => update({ ignoreArrayOrder: e.target.checked })}
-          />{" "}
-          Ignore array order
-        </label>
+        <Switch
+          label="Ignore array order"
+          checked={state.ignoreArrayOrder}
+          onChange={(_, data) => update({ ignoreArrayOrder: data.checked })}
+        />
         <button
           type="button"
           className="btn-small"
