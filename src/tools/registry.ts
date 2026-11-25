@@ -222,6 +222,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./jwt-decoder")),
   },
   {
+    id: "jwt-signer",
+    name: "JWT Sign & Verify",
+    description: "Create and verify JWTs with HS, RS, PS and ES algorithms (HS256…ES512). Keys stay in your browser; the token's own alg is never trusted.",
+    category: "Security",
+    keywords: ["jwt", "jws", "sign", "verify", "hs256", "rs256", "es256", "ps256", "hmac", "rsa", "ecdsa", "token", "signature", "jwk", "pem"],
+    acceptsText: true,
+    component: lazy(() => import("./jwt-signer")),
+  },
+  {
     id: "hash-generator",
     name: "Hash Generator",
     description: "MD5, SHA-1, SHA-256, SHA-384, SHA-512 and HMAC for text or files, with checksum compare.",

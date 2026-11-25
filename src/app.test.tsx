@@ -776,3 +776,27 @@ describe("bits and bytes tool", () => {
     expect(rowValue("Flags set")).toBe("READ | WRITE | EXEC | HIDDEN");
   });
 });
+
+describe("jwt sign and verify tool", () => {
+  const TOKEN =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+
+  it("signs the jwt.io example, verifies it, and rejects a wrong key", async () => {
+    await mount("#/jwt-signer");
+    await type(await textarea("Header (alg is set for you)"), '{"typ":"JWT"}');
+    await type(await textarea("Payload (JSON claims)"), '{"sub":"1234567890","name":"John Doe","iat":1516239022}');
+    await type(await textarea("Secret"), "your-256-bit-secret");
+    const signedBox = await waitFor(() => findTextarea("Signed token"));
+    await waitFor(() => findTextarea("Signed token")?.value === TOKEN);
+    expect(signedBox.value === TOKEN || findTextarea("Signed token")?.value === TOKEN).toBe(true);
+
+    await click("Verify this token");
+    await waitFor(() => container.textContent?.includes("Signature is valid"));
+    expect(container.textContent).toContain("✓ Signature is valid");
+    expect((await textarea("Payload")).value).toContain("John Doe");
+
+    await type(await textarea("Secret"), "wrong-secret");
+    await waitFor(() => container.textContent?.includes("does NOT match"));
+    expect(container.textContent).toContain("Payload (NOT verified)");
+  });
+});
