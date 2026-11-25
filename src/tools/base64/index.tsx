@@ -1,6 +1,5 @@
 import { useMemo } from "react";
-import { Switch } from "@fluentui/react-components";
-import { ErrorDisplay, SendToMenu, ShareButton, TextPane } from "../../components/ui";
+import { ErrorDisplay, SendToMenu, ShareButton, TextPane, ToolbarSwitch } from "../../components/ui";
 import { usePipelineInput } from "../../lib/usePipeline";
 import { useToolState } from "../../lib/useToolState";
 import { decodeText, encodeText } from "./logic";
@@ -55,15 +54,15 @@ export default function Base64Tool() {
         </div>
         {state.mode === "encode" && (
           <>
-            <Switch
+            <ToolbarSwitch
               label="URL-safe (- and _)"
               checked={state.urlSafe}
-              onChange={(_, data) => update({ urlSafe: data.checked })}
+              onChange={(urlSafe) => update({ urlSafe })}
             />
-            <Switch
+            <ToolbarSwitch
               label="Padding (=)"
               checked={state.padding}
-              onChange={(_, data) => update({ padding: data.checked })}
+              onChange={(padding) => update({ padding })}
             />
           </>
         )}

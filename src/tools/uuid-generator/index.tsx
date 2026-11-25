@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
-import { Switch } from "@fluentui/react-components";
-import { ErrorDisplay, ShareButton, TextPane } from "../../components/ui";
+import { ErrorDisplay, ShareButton, TextPane, ToolbarSwitch } from "../../components/ui";
 import { useToolState } from "../../lib/useToolState";
 import {
   MAX_COUNT,
@@ -74,17 +73,17 @@ export default function UuidGenerator() {
           />
         </label>
         {(isUuid || options.kind === "ulid") && (
-          <Switch
+          <ToolbarSwitch
             label="Uppercase"
             checked={options.uppercase}
-            onChange={(_, data) => update({ uppercase: data.checked })}
+            onChange={(uppercase) => update({ uppercase })}
           />
         )}
         {isUuid && (
-          <Switch
+          <ToolbarSwitch
             label="Hyphens"
             checked={options.hyphens}
-            onChange={(_, data) => update({ hyphens: data.checked })}
+            onChange={(hyphens) => update({ hyphens })}
           />
         )}
         <button type="button" className="btn-small" onClick={() => setGeneration((g) => g + 1)}>

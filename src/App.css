@@ -442,14 +442,6 @@ button[aria-pressed="true"].btn-small {
   cursor: pointer;
 }
 
-.fui-Switch:has(input:not(:checked)) .fui-Switch__label {
-  color: var(--colorNeutralForeground3);
-}
-
-.fui-Switch:has(input:checked) .fui-Switch__label {
-  color: var(--colorNeutralForeground1);
-}
-
 .toolbar select,
 .pane-actions select {
   appearance: none;

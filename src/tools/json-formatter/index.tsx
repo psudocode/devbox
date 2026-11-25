@@ -1,6 +1,5 @@
 import { useMemo } from "react";
-import { Switch } from "@fluentui/react-components";
-import { ErrorDisplay, SendToMenu, ShareButton, TextPane } from "../../components/ui";
+import { ErrorDisplay, SendToMenu, ShareButton, TextPane, ToolbarSwitch } from "../../components/ui";
 import { byteSize } from "./size";
 import { useToolState } from "../../lib/useToolState";
 import { usePipelineInput } from "../../lib/usePipeline";
@@ -60,10 +59,10 @@ export default function JsonFormatter() {
             </select>
           </label>
         )}
-        <Switch
+        <ToolbarSwitch
           label="Sort keys"
           checked={state.sortKeys}
-          onChange={(_, data) => update({ sortKeys: data.checked })}
+          onChange={(sortKeys) => update({ sortKeys })}
         />
         <ShareButton toolId={TOOL_ID} state={state} />
         <button type="button" className="btn-small" onClick={() => update({ input: "" })} disabled={!state.input}>
