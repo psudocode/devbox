@@ -412,3 +412,122 @@ describe("color converter tool", () => {
   });
 });
 
+
+const button = (label: string) => waitFor(() => [...container.querySelectorAll("button")].find((b) => b.textContent === label));
+const click = async (label: string) => {
+  const el = await button(label);
+  await act(async () => el.click());
+};
+
+describe("json <-> yaml tool", () => {
+  it("converts both ways, swaps and shows JSON errors", async () => {
+    await mount("#/json-yaml");
+    await type(await textarea("JSON"), '{"a":[1,2],"b":{"c":true}}');
+    expect((await textarea("YAML")).value).toBe("a:\n  - 1\n  - 2\nb:\n  c: true\n");
+
+    await click("Swap");
+    expect((await textarea("YAML")).value).toBe("a:\n  - 1\n  - 2\nb:\n  c: true\n");
+    expect((await textarea("JSON")).value).toBe('{\n  "a": [\n    1,\n    2\n  ],\n  "b": {\n    "c": true\n  }\n}');
+
+    await click("JSON → YAML");
+    await type(await textarea("JSON"), "{nope");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("Invalid JSON");
+  });
+});
+
+describe("json <-> csv tool", () => {
+  it("converts an array of objects and back", async () => {
+    await mount("#/json-csv");
+    await type(await textarea("JSON"), '[{"id":1,"name":"Ann, Jr."},{"id":2,"name":"Bob"}]');
+    expect((await textarea("CSV")).value).toBe('id,name\n1,"Ann, Jr."\n2,Bob');
+
+    await click("CSV → JSON");
+    await type(await textarea("CSV"), "a,b\n1,x\n");
+    expect(JSON.parse((await textarea("JSON")).value)).toEqual([{ a: 1, b: "x" }]);
+    await type(await textarea("CSV"), 'a,b\n1,"x\n');
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("never closed");
+  });
+});
+
+describe("json <-> xml tool", () => {
+  it("converts both ways and reports malformed XML", async () => {
+    await mount("#/json-xml");
+    await type(await textarea("JSON"), '{"user":{"@id":"1","name":"Ann"}}');
+    expect((await textarea("XML")).value).toBe('<user id="1">\n  <name>Ann</name>\n</user>');
+
+    await click("XML → JSON");
+    await type(await textarea("XML"), '<a x="1"><b>2</b></a>');
+    expect(JSON.parse((await textarea("JSON")).value)).toEqual({ a: { "@x": "1", b: "2" } });
+    await type(await textarea("XML"), "<a><b></a>");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("Invalid XML");
+  });
+});
+
+describe("json <-> toml tool", () => {
+  it("converts, and explains why null cannot be converted", async () => {
+    await mount("#/json-toml");
+    await type(await textarea("JSON"), '{"title":"x","owner":{"name":"Ann"}}');
+    expect((await textarea("TOML")).value).toBe('title = "x"\n\n[owner]\nname = "Ann"\n');
+
+    await type(await textarea("JSON"), '{"a":{"b":null}}');
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain('"a.b"');
+
+    await click("TOML → JSON");
+    await type(await textarea("TOML"), "a = 1\n[t]\nb = [1, 2]");
+    expect(JSON.parse((await textarea("JSON")).value)).toEqual({ a: 1, t: { b: [1, 2] } });
+  });
+});
+
+describe("json types tool", () => {
+  it("generates TypeScript, Go and Zod from a sample", async () => {
+    await mount("#/json-types");
+    await type(await textarea("JSON sample"), '{"id":1,"tags":["a"],"owner":{"name":"Ann"}}');
+    const ts = (await textarea("TypeScript")).value;
+    expect(ts).toContain("export interface Root {");
+    expect(ts).toContain("owner: Owner;");
+
+    await click("Go struct");
+    expect((await textarea("Go")).value).toMatch(/ID\s+int64\s+`json:"id"`/);
+
+    await click("Zod");
+    expect((await textarea("Zod schema")).value).toContain("export const RootSchema = z.object({");
+  });
+});
+
+describe("json query tool", () => {
+  it("runs JSONPath and jq queries", async () => {
+    await mount("#/json-query");
+    await type(await textarea("JSON"), '{"items":[{"n":"a","p":5},{"n":"b","p":12}]}');
+    const query = await waitFor(() => container.querySelector<HTMLInputElement>("#json-query-input"));
+    await type(query, "$.items[?@.p > 10].n");
+    expect((await waitFor(() => findTextarea("Result (1 match)"))).value).toBe('[\n  "b"\n]');
+
+    await click("jq");
+    await type(container.querySelector<HTMLInputElement>("#json-query-input")!, ".items[] | select(.p < 10) | .n");
+    expect((await waitFor(() => findTextarea("Result (1 match)"))).value).toBe('"a"');
+
+    await type(container.querySelector<HTMLInputElement>("#json-query-input")!, ".items | nope");
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("nope/0 is not defined");
+  });
+});
+
+describe("data validator tool", () => {
+  it("formats YAML, XML and CSV and reports problems", async () => {
+    await mount("#/data-validator");
+    await type(await textarea("YAML"), "a:\n    - 1\n    - 2\n");
+    expect((await textarea("Formatted")).value).toBe("a:\n  - 1\n  - 2\n");
+    expect(container.querySelector(".status")?.textContent).toContain("Valid YAML");
+
+    await click("XML");
+    await type(await textarea("XML"), "<a><b>1</b></a>");
+    expect((await textarea("Formatted")).value).toBe("<a>\n  <b>1</b>\n</a>\n");
+
+    await click("CSV");
+    await type(await textarea("CSV"), "a;b;c\n1;2\n");
+    expect(container.textContent).toContain("Line 2: 2 fields, the first row has 3.");
+    expect((await textarea("Formatted")).value).toBe("a;b;c\n1;2\n");
+
+    await type(await textarea("CSV"), 'a,b\n"1,2\n');
+    expect(container.querySelector('[role="alert"]')?.textContent).toContain("never closed");
+  });
+});
