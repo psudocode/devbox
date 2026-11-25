@@ -60,7 +60,7 @@ Conventions:
 - [x] YAML / XML / CSV validator and formatter
 - [x] SQL formatter
 - [x] Markdown preview
-- [ ] HTML / CSS / JS beautify and minify
+- [x] HTML / CSS / JS beautify and minify
 - [ ] Text diff (side by side)
 
 ### Encode / decode / convert

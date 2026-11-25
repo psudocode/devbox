@@ -567,3 +567,27 @@ describe("markdown preview tool", () => {
     expect(container.querySelector("iframe")).toBeNull();
   });
 });
+
+describe("code beautifier tool", () => {
+  it("beautifies, minifies and reports errors and size savings", async () => {
+    await mount("#/code-beautifier");
+    await type(await textarea("JavaScript"), "function f(a,b){return a+b}");
+    await waitFor(() => (findTextarea("Beautified")?.value ?? "") !== "" && findTextarea("Beautified"));
+    expect((await textarea("Beautified")).value).toBe("function f(a, b) {\n  return a + b\n}\n");
+
+    await click("Minify");
+    // the previous (beautified) output is still shown until the minifier finishes, so wait for the minified shape
+    await waitFor(() => /^function f\(\w,\w\)\{/.test(findTextarea("Minified")?.value ?? ""));
+    expect((await textarea("Minified")).value).toMatch(/^function f\(\w,\w\)\{return \w\+\w\}$/);
+    expect(container.querySelector(".status")?.textContent).toMatch(/smaller|larger/);
+
+    await type(await textarea("JavaScript"), "function ( {");
+    await waitFor(() => container.querySelector('[role="alert"]'));
+    expect(container.querySelector('[role="alert"]')?.textContent).toMatch(/line 1, column \d+/);
+
+    await click("HTML");
+    await type(await textarea("HTML"), "<div>\n  <p> a   b </p>\n</div>");
+    await waitFor(() => findTextarea("Minified")?.value === "<div><p>a b</p></div>");
+    expect((await textarea("Minified")).value).toBe("<div><p>a b</p></div>");
+  });
+});

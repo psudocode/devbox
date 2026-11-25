@@ -115,6 +115,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./markdown-preview")),
   },
   {
+    id: "code-beautifier",
+    name: "HTML / CSS / JS Beautify & Minify",
+    description: "Beautify or minify HTML, CSS and JavaScript. Inline scripts and styles included; shows the size saved.",
+    category: "Data & format",
+    keywords: ["html", "css", "javascript", "js", "beautify", "prettify", "format", "minify", "uglify", "terser", "compress", "pretty"],
+    acceptsText: true,
+    component: lazy(() => import("./code-beautifier")),
+  },
+  {
     id: "number-base",
     name: "Number Base Converter",
     description: "Convert integers between bases 2-36 (hex, binary, decimal, octal). No size limit.",
