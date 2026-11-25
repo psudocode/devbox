@@ -21,7 +21,7 @@ Conventions:
 - [x] GitHub Actions CI: lint, test, build
 - [x] PWA / offline support (service worker + manifest)
 - [x] Chain / pipeline: send one tool's output into another tool
-- [ ] (needs owner) Static hosting + deploy workflow (GitHub Pages or Cloudflare Pages)
+- [x] Static hosting + deploy workflow (GitHub Pages or Cloudflare Pages)
 
 ## Phase 1 - Most used tools (batch 1)
 
@@ -46,7 +46,7 @@ Conventions:
 - [x] Regex tester (match highlight, groups, flags)
 
 ### Frontend
-- [ ] Color converter (HEX/RGB/HSL/OKLCH) + WCAG contrast checker
+- [x] Color converter (HEX/RGB/HSL/OKLCH) + WCAG contrast checker
 
 ## Phase 2 - Batch 2
 

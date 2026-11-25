@@ -104,6 +104,15 @@ export const toolDefinitions: ToolDefinition[] = [
     acceptsText: true,
     component: lazy(() => import("./regex-tester")),
   },
+  {
+    id: "color-converter",
+    name: "Color Converter",
+    description: "Convert HEX, RGB, HSL and OKLCH colors and check WCAG contrast ratios.",
+    category: "Frontend & design",
+    keywords: ["color", "hex", "rgb", "hsl", "oklch", "wcag", "contrast", "a11y", "accessibility"],
+    acceptsText: true,
+    component: lazy(() => import("./color-converter")),
+  },
 ];
 
 export const registry = createRegistry(toolDefinitions);
