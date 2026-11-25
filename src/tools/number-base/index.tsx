@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Switch } from "@fluentui/react-components";
 import { CopyButton, ErrorDisplay, ShareButton } from "../../components/ui";
 import { usePipelineInput } from "../../lib/usePipeline";
 import { useToolState } from "../../lib/useToolState";
@@ -68,12 +69,16 @@ export default function NumberBase() {
           </button>
         ))}
         <BaseInput id="custom-base" label="Custom output base" value={state.customBase} onChange={(customBase) => update({ customBase })} />
-        <label>
-          <input type="checkbox" checked={state.uppercase} onChange={(e) => update({ uppercase: e.target.checked })} /> Uppercase
-        </label>
-        <label>
-          <input type="checkbox" checked={state.group} onChange={(e) => update({ group: e.target.checked })} /> Group digits
-        </label>
+        <Switch
+          label="Uppercase"
+          checked={state.uppercase}
+          onChange={(_, data) => update({ uppercase: data.checked })}
+        />
+        <Switch
+          label="Group digits"
+          checked={state.group}
+          onChange={(_, data) => update({ group: data.checked })}
+        />
         <ShareButton toolId={TOOL_ID} state={state} />
       </div>
 

@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Switch } from "@fluentui/react-components";
 import { ErrorDisplay, SendToMenu, ShareButton, TextPane } from "../../components/ui";
 import { usePipelineInput } from "../../lib/usePipeline";
 import { useToolState } from "../../lib/useToolState";
@@ -54,14 +55,16 @@ export default function Base64Tool() {
         </div>
         {state.mode === "encode" && (
           <>
-            <label>
-              <input type="checkbox" checked={state.urlSafe} onChange={(e) => update({ urlSafe: e.target.checked })} /> URL-safe
-              (- and _)
-            </label>
-            <label>
-              <input type="checkbox" checked={state.padding} onChange={(e) => update({ padding: e.target.checked })} /> Padding
-              (=)
-            </label>
+            <Switch
+              label="URL-safe (- and _)"
+              checked={state.urlSafe}
+              onChange={(_, data) => update({ urlSafe: data.checked })}
+            />
+            <Switch
+              label="Padding (=)"
+              checked={state.padding}
+              onChange={(_, data) => update({ padding: data.checked })}
+            />
           </>
         )}
         <button type="button" className="btn-small" onClick={swap} disabled={output === ""}>
