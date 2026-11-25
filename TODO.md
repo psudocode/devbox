@@ -61,7 +61,7 @@ Conventions:
 - [x] SQL formatter
 - [x] Markdown preview
 - [x] HTML / CSS / JS beautify and minify
-- [ ] Text diff (side by side)
+- [x] Text diff (side by side)
 
 ### Encode / decode / convert
 - [ ] Base64 for files and images <-> data URI

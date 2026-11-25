@@ -124,6 +124,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./code-beautifier")),
   },
   {
+    id: "text-diff",
+    name: "Text Diff",
+    description: "Compare two texts side by side or as a unified diff, with word-level highlights and ignore options.",
+    category: "Data & format",
+    keywords: ["diff", "compare", "text", "difference", "patch", "unified", "side by side", "merge", "changes"],
+    acceptsText: true,
+    component: lazy(() => import("./text-diff")),
+  },
+  {
     id: "number-base",
     name: "Number Base Converter",
     description: "Convert integers between bases 2-36 (hex, binary, decimal, octal). No size limit.",

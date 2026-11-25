@@ -591,3 +591,27 @@ describe("code beautifier tool", () => {
     expect((await textarea("Minified")).value).toBe("<div><p>a b</p></div>");
   });
 });
+
+describe("text diff tool", () => {
+  it("shows a side-by-side diff with word highlights, a unified view, and identical texts", async () => {
+    await mount("#/text-diff");
+    await type(await textarea("Original"), "one\ntwo words here\nthree");
+    await type(await textarea("Modified"), "one\ntwo other here\nthree\nfour");
+    expect(container.querySelector(".status")?.textContent).toContain("+2 added · −1 removed · 1 changed · 2 unchanged");
+
+    const marks = [...container.querySelectorAll(".text-diff mark")].map((m) => m.textContent);
+    expect(marks).toEqual(["words", "other"]);
+    expect(container.querySelectorAll(".text-diff tr").length).toBe(4);
+
+    await click("Unified");
+    const unified = container.querySelector(".text-diff-unified")?.textContent ?? "";
+    expect(unified).toContain("-two words here");
+    expect(unified).toContain("+two other here");
+    expect(unified).toContain("+four");
+    expect(unified).toContain("@@ -1,3 +1,4 @@");
+
+    await type(await textarea("Modified"), "one\ntwo words here\nthree");
+    expect(container.querySelector(".status")?.textContent).toContain("identical");
+    expect(container.querySelector(".text-diff-wrap")).toBeNull();
+  });
+});
