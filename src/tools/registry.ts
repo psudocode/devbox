@@ -61,6 +61,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./json-xml")),
   },
   {
+    id: "json-toml",
+    name: "JSON ↔ TOML",
+    description: "Convert JSON to TOML 1.0 and back. Dates, big integers and arrays of tables handled.",
+    category: "Data & format",
+    keywords: ["json", "toml", "convert", "config", "cargo", "pyproject"],
+    acceptsText: true,
+    component: lazy(() => import("./json-toml")),
+  },
+  {
     id: "number-base",
     name: "Number Base Converter",
     description: "Convert integers between bases 2-36 (hex, binary, decimal, octal). No size limit.",

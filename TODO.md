@@ -54,7 +54,7 @@ Conventions:
 - [x] JSON <-> YAML
 - [x] JSON <-> CSV
 - [x] JSON <-> XML
-- [ ] JSON <-> TOML
+- [x] JSON <-> TOML
 - [ ] JSON -> TypeScript types / Go struct / Zod schema
 - [ ] JSONPath / jq-style query tester
 - [ ] YAML / XML / CSV validator and formatter
