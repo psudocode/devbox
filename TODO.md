@@ -81,9 +81,9 @@ Conventions:
 - [ ] bcrypt / argon2 hash (WASM, still client-side)
 
 ### Time
-- [ ] Timezone converter
-- [ ] Cron expression builder + explainer + next N runs
-- [ ] Date difference calculator, ISO 8601 duration
+- [x] Timezone converter
+- [x] Cron expression builder + explainer + next N runs
+- [x] Date difference calculator, ISO 8601 duration
 
 ### Web & network
 - [ ] cURL <-> fetch / axios / Go converter
