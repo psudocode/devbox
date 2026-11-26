@@ -76,7 +76,7 @@ Conventions:
 - [x] AES encrypt / decrypt
 - [x] RSA / ECDSA key pair generator, PBKDF2
 - [x] Password generator and strength check
-- [ ] TOTP / OTP generator
+- [x] TOTP / OTP generator
 - [ ] PEM / X.509 certificate and CSR decoder, SSH key fingerprint
 - [ ] bcrypt / argon2 hash (WASM, still client-side)
 

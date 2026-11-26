@@ -256,6 +256,14 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./password-generator")),
   },
   {
+    id: "totp-generator",
+    name: "TOTP / OTP Generator",
+    description: "Generate and check time-based one-time passwords (RFC 6238) from a Base32 secret or an otpauth:// URI. The secret never leaves the page.",
+    category: "Security",
+    keywords: ["totp", "otp", "hotp", "2fa", "mfa", "authenticator", "google authenticator", "one-time", "otpauth", "base32", "two factor"],
+    component: lazy(() => import("./totp-generator")),
+  },
+  {
     id: "hash-generator",
     name: "Hash Generator",
     description: "MD5, SHA-1, SHA-256, SHA-384, SHA-512 and HMAC for text or files, with checksum compare.",
