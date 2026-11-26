@@ -75,7 +75,7 @@ Conventions:
 - [x] JWT sign and verify (HS256, RS256, ES256)
 - [x] AES encrypt / decrypt
 - [x] RSA / ECDSA key pair generator, PBKDF2
-- [ ] Password generator and strength check
+- [x] Password generator and strength check
 - [ ] TOTP / OTP generator
 - [ ] PEM / X.509 certificate and CSR decoder, SSH key fingerprint
 - [ ] bcrypt / argon2 hash (WASM, still client-side)
