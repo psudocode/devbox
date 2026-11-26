@@ -248,6 +248,14 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./key-generator")),
   },
   {
+    id: "password-generator",
+    name: "Password Generator",
+    description: "Generate random passwords with the browser's secure random generator and check how strong a password is.",
+    category: "Security",
+    keywords: ["password", "generator", "random", "strength", "entropy", "secure", "passphrase", "checker"],
+    component: lazy(() => import("./password-generator")),
+  },
+  {
     id: "hash-generator",
     name: "Hash Generator",
     description: "MD5, SHA-1, SHA-256, SHA-384, SHA-512 and HMAC for text or files, with checksum compare.",
