@@ -290,6 +290,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./uuid-generator")),
   },
   {
+    id: "password-hash",
+    name: "bcrypt & Argon2 Hash",
+    description: "Hash and verify passwords with Argon2id/i/d and bcrypt in WebAssembly, and inspect encoded hash parameters. Everything stays in your browser.",
+    category: "Security",
+    keywords: ["bcrypt", "argon2", "argon2id", "argon2i", "argon2d", "password", "hash", "kdf", "verify", "wasm", "salt"],
+    acceptsText: true,
+    component: lazy(() => import("./password-hash")),
+  },
+  {
     id: "unix-timestamp",
     name: "Unix Timestamp",
     description: "Convert Unix time (seconds, ms, µs, ns) to dates and back, in any time zone.",

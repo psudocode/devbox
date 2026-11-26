@@ -78,7 +78,7 @@ Conventions:
 - [x] Password generator and strength check
 - [x] TOTP / OTP generator
 - [x] PEM / X.509 certificate and CSR decoder, SSH key fingerprint
-- [ ] bcrypt / argon2 hash (WASM, still client-side)
+- [x] bcrypt / argon2 hash (WASM, still client-side)
 
 ### Time
 - [x] Timezone converter
