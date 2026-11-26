@@ -264,6 +264,15 @@ export const toolDefinitions: ToolDefinition[] = [
     component: lazy(() => import("./totp-generator")),
   },
   {
+    id: "cert-decoder",
+    name: "Certificate, CSR & SSH Key Decoder",
+    description: "Decode PEM X.509 certificates (chains too), CSRs and public keys, and get SHA-256 / MD5 fingerprints of SSH public keys. Decoding only.",
+    category: "Security",
+    keywords: ["x509", "x.509", "certificate", "cert", "pem", "csr", "ssl", "tls", "ssh", "fingerprint", "public key", "san", "expiry", "openssl", "der", "asn1"],
+    acceptsText: true,
+    component: lazy(() => import("./cert-decoder")),
+  },
+  {
     id: "hash-generator",
     name: "Hash Generator",
     description: "MD5, SHA-1, SHA-256, SHA-384, SHA-512 and HMAC for text or files, with checksum compare.",
