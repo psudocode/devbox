@@ -113,18 +113,6 @@ Conventions:
 
 ## Phase 3 - Batch 3
 
-### Images
-- [ ] Image compress / resize / convert format (Canvas)
-- [ ] SVG optimizer and viewer
-- [ ] EXIF viewer
-- [ ] Favicon generator
-- [ ] Code snippet -> image
-
-### AWS & backend
-- [ ] AWS ARN parser
-- [ ] IAM policy formatter / validator
-- [ ] S3 presigned URL decoder
-- [ ] Lambda event samples (API Gateway, SQS, S3)
-- [ ] EventBridge cron expression (AWS format)
+### Code & backend
 - [ ] ULID / KSUID decoder
 - [ ] Go struct <-> JSON, TypeScript interface <-> JSON
