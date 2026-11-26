@@ -77,7 +77,7 @@ Conventions:
 - [x] RSA / ECDSA key pair generator, PBKDF2
 - [x] Password generator and strength check
 - [x] TOTP / OTP generator
-- [ ] PEM / X.509 certificate and CSR decoder, SSH key fingerprint
+- [x] PEM / X.509 certificate and CSR decoder, SSH key fingerprint
 - [ ] bcrypt / argon2 hash (WASM, still client-side)
 
 ### Time
