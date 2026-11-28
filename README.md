@@ -72,6 +72,7 @@ npm run dev       # start the dev server
 | `npm run lint` | Run ESLint (`--max-warnings 0`) |
 | `npm test` | Run unit tests (Vitest) |
 | `npm run build` | Type-check (`tsc`) + production build into `dist/` |
+| `npm run check:bundle` | Verify bundle sizes against performance budgets |
 | `npm run preview` | Serve the production build locally |
 
 ## Adding a Tool
