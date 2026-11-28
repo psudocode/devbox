@@ -4,7 +4,7 @@
 
 Everything runs locally in your browser. There is no backend, no telemetry, and no data leaves your machine.
 
-[Roadmap](./TODO.md) · [Report a bug](https://github.com/psudocode/devbox/issues/new)
+[![CI](https://github.com/psudocode/devbox/actions/workflows/ci.yml/badge.svg)](https://github.com/psudocode/devbox/actions/workflows/ci.yml) · [Roadmap](./TODO.md) · [Report a bug](https://github.com/psudocode/devbox/issues/new)
 
 ---
 
@@ -71,8 +71,22 @@ npm run dev       # start the dev server
 | `npm run dev` | Start the Vite dev server |
 | `npm run lint` | Run ESLint (`--max-warnings 0`) |
 | `npm test` | Run unit tests (Vitest) |
+| `npm run test:coverage` | Run tests with V8 coverage (`coverage/`) |
+| `npm run audit` | `npm audit` on production deps (fails on high/critical) |
 | `npm run build` | Type-check (`tsc`) + production build into `dist/` |
 | `npm run preview` | Serve the production build locally |
+
+### Quality & CI
+
+GitHub Actions runs lint, tests with coverage, build and `npm audit` on every PR. Dependabot opens weekly dependency updates. PRs from this repo get a Cloudflare Pages preview (`pr-<number>` alias; production is never touched; needs `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` secrets and a `CLOUDFLARE_PAGES_PROJECT` variable).
+
+Test coverage (913 tests, last measured):
+
+| Statements | Branches | Functions | Lines |
+| --- | --- | --- | --- |
+| 87.9% | 88.7% | 79.5% | 87.9% |
+
+The live numbers appear in each CI run's job summary.
 
 ## Adding a Tool
 
