@@ -4,7 +4,15 @@
 
 Everything runs locally in your browser. There is no backend, no telemetry, and no data leaves your machine.
 
-[Roadmap](./TODO.md) · [Report a bug](https://github.com/psudocode/devbox/issues/new)
+[![CI](https://github.com/psudocode/devbox/actions/workflows/ci.yml/badge.svg)](https://github.com/psudocode/devbox/actions/workflows/ci.yml)
+
+**[Live demo → dev.awdi.my.id](https://dev.awdi.my.id)** · [Roadmap](./TODO.md) · [Report a bug](https://github.com/psudocode/devbox/issues/new)
+
+![DevBox home page](./docs/screenshots/home-light.png)
+
+| Command palette (`Ctrl+K`) | Pipeline: JSON → YAML, dark mode |
+| --- | --- |
+| ![Command palette searching for "json"](./docs/screenshots/palette.png) | ![JSON Formatter output sent to JSON ↔ YAML in dark theme](./docs/screenshots/pipeline.png) |
 
 ---
 
@@ -48,6 +56,28 @@ Everything runs locally in your browser. There is no backend, no telemetry, and 
 - Color converter (`HEX` / `RGB` / `HSL` / `OKLCH`) + WCAG contrast checker
 
 > See [`TODO.md`](./TODO.md) for upcoming tools in Phase 2 and Phase 3.
+
+## Architecture
+
+| Piece | Where | What it does |
+| --- | --- | --- |
+| Tool registry | `src/tools/registry.ts`, `registry-core.ts` | One list of tool definitions (id, name, category, keywords, lazy component). Sidebar, home grid, search and command palette are all generated from it. `createRegistry` rejects invalid or duplicate ids. |
+| Logic / UI split | `src/tools/<id>/logic.ts` + `index.tsx` | `logic.ts` holds pure, unit-tested functions with no React or DOM. `index.tsx` is a thin UI over them. |
+| Pipeline | `src/lib/pipeline.ts`, `usePipeline.ts` | One-slot, in-memory handoff. A tool with `acceptsText` appears in other tools' "Send to…" menu and receives the value via `usePipelineInput`. |
+| State | `src/lib/toolState.ts`, `useToolState.ts` | Per-tool input persisted in `localStorage` and encoded as base64url in the URL hash for share links. |
+| Routing | `src/lib/router.ts` | Hash router (`#/tool-id`), so it works on any static host. |
+| Offline | `vite-plugins/service-worker.ts` | Build-time service worker plus web manifest, making DevBox an installable PWA. |
+
+## Design decisions
+
+- **No backend, ever.** Inputs (tokens, keys, payloads) are sensitive, so nothing is uploaded and there is no telemetry. This also makes hosting a static site on Cloudflare Pages.
+- **Pure logic, separate from UI.** Tool behavior is tested in Vitest's Node environment without rendering anything, which keeps the suite fast and the UI layer trivial.
+- **Registry as the single source of truth.** Adding a tool is one registry entry; navigation and search need no further wiring.
+- **Lazy-loaded tools.** Each tool is its own chunk, so heavy dependencies (WASM hashing, beautifiers, SQL formatter) load only when opened.
+- **Pipeline stays in memory.** Sent data never touches storage or the URL, so it cannot outlive the page.
+- **Web APIs first.** `crypto.subtle`, `TextEncoder`, `Intl` and `BigInt` are preferred; a dependency is added only when it clearly pays off (see [`TODO.md`](./TODO.md)).
+- **Relative Vite `base` and hash routing**, so the same build works from any path or static host.
+- **Strict CI gate:** lint with `--max-warnings 0`, tests, and type-checked build on every PR.
 
 ## Tech Stack
 
