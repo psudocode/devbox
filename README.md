@@ -83,3 +83,7 @@ npm run dev       # start the dev server
 ## Roadmap
 
 See [`TODO.md`](./TODO.md) for the full checklist and conventions.
+
+## Bundle budget
+
+`npm run check:bundle` (run in CI after `npm run build`) fails if the JS loaded up front exceeds 350 kB or any single chunk exceeds 560 kB (minified). Limits live in `scripts/bundle-budget.mjs`. Heavy dependencies are split via `vite-plugins/vendor-chunk.ts`; the largest chunk, `vendor-terser`, is only fetched when the JS minifier is used.
