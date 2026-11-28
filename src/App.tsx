@@ -9,6 +9,12 @@ import { useRoute } from "./lib/useRoute";
 import { useTheme } from "./lib/useTheme";
 import { markRecent } from "./lib/useUserLists";
 
+/** Hash links would clobber the router, so move focus to <main> by hand. */
+function focusMain(e: React.MouseEvent) {
+  e.preventDefault();
+  document.getElementById("main-content")?.focus();
+}
+
 function App() {
   const route = useRoute();
   const activeToolId = route.name === "tool" ? route.toolId : null;
@@ -32,9 +38,12 @@ function App() {
 
   return (
     <FluentProvider theme={resolved === "dark" ? webDarkTheme : webLightTheme}>
+      <a className="skip-link" href="#main-content" onClick={focusMain}>
+        Skip to main content
+      </a>
       <div className="layout">
         <Sidebar activeToolId={activeToolId} onSearch={() => setPaletteOpen(true)} />
-        <main className="content">
+        <main className="content" id="main-content" tabIndex={-1}>
           {route.name === "tool" ? <ToolPage key={route.toolId} toolId={route.toolId} /> : <HomeGrid />}
         </main>
         <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />

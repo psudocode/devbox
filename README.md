@@ -15,6 +15,7 @@ Everything runs locally in your browser. There is no backend, no telemetry, and 
 - **Tool Pipelines:** Send output from one tool directly into another (`SendToMenu`), plus shareable state via URL hash (`#/tool-id`).
 - **Offline Ready:** Installable PWA with service worker caching and persistent tool state in `localStorage`.
 - **Dark & Light Theme:** Follows system preference with manual override.
+- **Accessible:** Skip link, keyboard-operable palette and sidebar, labelled controls, `prefers-reduced-motion` support. See [Accessibility](#accessibility).
 
 ## Included Tools
 
@@ -79,6 +80,19 @@ npm run dev       # start the dev server
 1. Create `src/tools/<tool-id>/logic.ts` (pure functions) with `logic.test.ts`, and `index.tsx` (default-exported UI component).
 2. Register it in `src/tools/registry.ts` with `component: lazy(() => import('./<tool-id>'))`.
 3. Reuse shared UI from `src/components/ui` (`TextPane`, `CopyButton`, `FileDropZone`, `ErrorDisplay`, `ShareButton`, `SendToMenu`), `useToolState(toolId, defaults)` for persisted + shareable state, and `usePipelineInput(toolId, cb)` if the tool sets `acceptsText`.
+
+## Accessibility
+
+Audited with Lighthouse 13 and axe-core (WCAG 2.0/2.1 A + AA and best-practice rules) on the production build, in both light and dark themes.
+
+| Page | Lighthouse accessibility | axe violations |
+| --- | --- | --- |
+| Home (`#/`) | 100 | 0 |
+| JSON formatter | 100 | 0 |
+| Base64 | 100 | 0 |
+| Hash generator | 100 | 0 |
+
+Audited 2026-11-28. Notable behavior: a "Skip to main content" link is the first tab stop; the `Ctrl+K` palette is a labelled modal combobox that keeps focus in its input and returns focus when closed; animations are disabled under `prefers-reduced-motion`; option switches no longer dim labels with opacity (that failed contrast in the light theme).
 
 ## Roadmap
 

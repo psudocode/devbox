@@ -6,13 +6,13 @@ interface Props {
   onChange: (checked: boolean) => void;
 }
 
-/** Fluent Switch with a dimmed label when off so active options stand out. */
+/** Fluent Switch; the label is bolder when on. (Dimming via opacity fails WCAG contrast in light theme.) */
 export function ToolbarSwitch({ label, checked, onChange }: Props) {
   return (
     <Switch
       label={{
         children: label,
-        style: { opacity: checked ? 1 : 0.55, transition: "opacity 0.15s ease" },
+        style: { fontWeight: checked ? 600 : 400 },
       }}
       checked={checked}
       onChange={(_, data) => onChange(data.checked)}

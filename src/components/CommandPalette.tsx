@@ -18,11 +18,15 @@ export function CommandPalette({ open, onClose }: Props) {
   const results = useMemo(() => searchTools(registry.tools, query), [query]);
 
   useEffect(() => {
-    if (open) {
-      setQuery("");
-      setSelected(0);
-      inputRef.current?.focus();
-    }
+    if (!open) return;
+    const opener = document.activeElement as HTMLElement | null;
+    setQuery("");
+    setSelected(0);
+    inputRef.current?.focus();
+    // Return focus to whatever opened the palette (unless navigation moved it elsewhere).
+    return () => {
+      if (opener && document.activeElement === document.body) opener.focus();
+    };
   }, [open]);
 
   if (!open) return null;
@@ -47,6 +51,10 @@ export function CommandPalette({ open, onClose }: Props) {
     } else if (e.key === "Escape") {
       e.preventDefault();
       onClose();
+    } else if (e.key === "Tab") {
+      // Modal dialog: the input is the only focus target, so keep focus there.
+      e.preventDefault();
+      inputRef.current?.focus();
     }
   };
 
@@ -72,12 +80,20 @@ export function CommandPalette({ open, onClose }: Props) {
               setQuery(e.target.value);
               setSelected(0);
             }}
+            role="combobox"
+            aria-label="Search tools"
+            aria-expanded="true"
+            aria-autocomplete="list"
             aria-controls="palette-results"
             aria-activedescendant={results[selected] ? `palette-item-${results[selected].id}` : undefined}
           />
         </div>
-        <ul id="palette-results" className="palette-results" role="listbox">
-          {results.length === 0 && <li className="palette-empty muted">No tools found</li>}
+        <ul id="palette-results" className="palette-results" role="listbox" aria-label="Matching tools">
+          {results.length === 0 && (
+            <li className="palette-empty muted" role="status">
+              No tools found
+            </li>
+          )}
           {results.map((tool, i) => (
             <li
               key={tool.id}

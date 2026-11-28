@@ -793,3 +793,47 @@ button[aria-pressed="true"].btn-small {
   color: var(--colorNeutralForeground3);
   background: var(--colorNeutralBackground2);
 }
+
+/* Accessibility */
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 2000;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--borderRadiusMedium);
+  background: var(--colorBrandBackground);
+  color: var(--colorNeutralForegroundOnBrand);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-300%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+.content:focus {
+  outline: none;
+}
+
+.sidebar a:focus-visible,
+.card:focus-visible,
+.palette-item:focus-visible {
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .palette-backdrop {
+    backdrop-filter: none;
+  }
+}

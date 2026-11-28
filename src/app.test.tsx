@@ -100,6 +100,29 @@ describe("app shell", () => {
     expect(container.querySelector('[role="dialog"]')).toBeNull();
   });
 
+  it("offers a skip link that moves focus to the main landmark", async () => {
+    await mount("");
+    const skip = container.querySelector<HTMLAnchorElement>("a.skip-link")!;
+    expect(skip.textContent).toBe("Skip to main content");
+    await act(async () => skip.click());
+    expect(document.activeElement).toBe(container.querySelector("main#main-content"));
+    expect(window.location.hash).toBe("");
+  });
+
+  it("labels the palette search box and keeps focus inside it on Tab", async () => {
+    await mount("");
+    await act(async () => void window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true })));
+    const input = container.querySelector<HTMLInputElement>(".palette-input")!;
+    expect(input.getAttribute("role")).toBe("combobox");
+    expect(input.getAttribute("aria-label")).toBe("Search tools");
+    expect(document.activeElement).toBe(input);
+
+    const tab = new KeyboardEvent("keydown", { key: "Tab", bubbles: true, cancelable: true });
+    await act(async () => void input.dispatchEvent(tab));
+    expect(tab.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(input);
+  });
+
   it("cycles theme and updates FluentProvider + document theme", async () => {
     await mount("");
     const toggle = container.querySelector<HTMLButtonElement>("button.theme-toggle")!;

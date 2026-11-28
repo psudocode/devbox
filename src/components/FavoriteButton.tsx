@@ -15,7 +15,7 @@ export function FavoriteButton({ toolId }: { toolId: string }) {
       title={active ? "Remove from favorites" : "Add to favorites"}
       onClick={() => toggle(toolId)}
     >
-      {active ? "Favorite" : "Favorite"}
+      Favorite
     </ToggleButton>
   );
 }
