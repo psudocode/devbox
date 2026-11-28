@@ -74,6 +74,18 @@ npm run dev       # start the dev server
 | `npm run build` | Type-check (`tsc`) + production build into `dist/` |
 | `npm run preview` | Serve the production build locally |
 
+## Security headers
+
+`public/_headers` (served by Cloudflare Pages) ships a strict Content-Security-Policy, so the "nothing leaves your browser" claim is enforced by the browser, not just promised:
+
+- `connect-src 'self'` and `default-src 'none'`: scripts cannot `fetch`/XHR/WebSocket to any other origin; forms cannot submit anywhere.
+- `script-src 'self' 'wasm-unsafe-eval'`: no `eval`, no inline scripts. `'wasm-unsafe-eval'` is only for compiling WebAssembly (`hash-wasm`, used by bcrypt/argon2) and does not enable JS `eval`.
+- `style-src 'unsafe-inline'` is needed by Fluent UI (Griffel injects styles) and React `style` props; `worker-src 'self'` covers the regex worker and the service worker.
+- `img-src 'self' data: blob:`: remote images in the Markdown preview are blocked (they would be an outbound request).
+- Also: `X-Content-Type-Options: nosniff`, `Referrer-Policy: no-referrer`, and a `Permissions-Policy` disabling camera, microphone, geolocation and similar.
+
+`vite-plugins/headers.test.ts` guards these invariants.
+
 ## Adding a Tool
 
 1. Create `src/tools/<tool-id>/logic.ts` (pure functions) with `logic.test.ts`, and `index.tsx` (default-exported UI component).
